@@ -2,6 +2,8 @@ Title: How this site came to be
 Date: 2018-04-01 18:39
 Category: Info
 
+# Part 1
+
 A co-worker was asking for some help on AWS Cloudfront/S3 in slack and [I clicked on the link](https://www.codependentcodr.com) for the page he was setting up. I asked him what he was using and he said pelican and that it was based on Python which is the language I am most familiar with. I saw it supports markdown which I also enjoy using. He mentioned other people were using Jekyll which is based on ruby, so that was a haaaard no for me.
 
 I figured my first post would be getting this site setup.
@@ -35,7 +37,7 @@ Then I built a base dockerfile that has simply `FROM alpline:latest`
 With that docker container built I ran it using `docker run -td {IMAGE ID}`
 And then got into it running `docker exec -it {CONTAINER ID} /bin/sh`
 
-I started going through the pelican docs doing their `pelican quickstart` and my docker file new looks like:
+I started going through the pelican docs. I ran their `pelican quickstart` while updating my docker file with all the requirements. It now looks like:
 
 ```
 FROM alpine:latest
@@ -50,9 +52,9 @@ For local testing I ended up with:
 
 `docker run -td -p 8080:8080 -v /home/ben/gnoinski.ca/ben/build_site/:/site {IMAGE ID}`
 
-And after the pelican quickstart I can run `./develop_server.sh start 8080` and then browse everything on the localhost.
+And after the pelican quickstart I can run `./develop_server.sh start 8080` and then browse to localhost:8080 in Chrome outside of the container.
 
-At this point I looked at CodependentCodr s repo to see what theme he was using and realized I messed up something so basic I should be emabarresed. I didn't have a requirements.txt for pip. I was just installing all the requirements adhoc in the Dockerfile. Fixed that, and added vim. Everytime I went `vim file` and the command doesn't exist it annoyed me, so I might as well fix it since vim is muscle memory at this point.
+At this point I looked at CodependentCodr's repo to see what theme he was using and realized I messed up something so basic I should be emabarresed. I didn't have a requirements.txt for pip. I was just installing all the requirements adhoc in the Dockerfile. Fixed that, and added vim. Everytime I went `vim file` and the command doesn't exist it annoys me, so I might as well fix it since vim is muscle memory at this point.
 
 New docker file:
 
@@ -62,7 +64,7 @@ FROM alpine:latest
 COPY requirements.txt /site/requirements.txt
 
 RUN apk update
-RUN apk add python3 alpine-sdk bash
+RUN apk add python3 alpine-sdk bash vim
 RUN pip3 install --upgrade pip
 RUN pip3 install -r /site/requirements.txt
 ```
@@ -178,4 +180,6 @@ dev: clean build
         docker run -td -p 8080:8080 -v $(current_dir):/site --name bengnoinskidev -u $(USER) gnoinski.ca:latest /bin/bash -c '/site/develop_server.sh start 8080 && sleep 1d'
 ```
 
-I am going to host this using Cloudfront backed by s3. I'm undecided if I should continue on with how I'm going to upload and host the site or do that in another post.
+<span style="color:#054300">I am going to host this using Cloudfront backed by s3. I'm undecided if I should continue on with how I'm going to upload and host the site or do that in another post.</span>
+
+Well It has been decided [Part2 Uploading My New Site to S3](uploading-my-new-site-to-s3.html)

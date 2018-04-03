@@ -13,3 +13,6 @@ build:
 
 dev: clean build
 	docker run -td -p 8080:8080 -v $(current_dir):/site --name bengnoinskidev -u $(USER) gnoinski.ca:latest /bin/bash -c '/site/develop_server.sh start 8080 && sleep 1d'
+
+upload:
+	aws s3 sync --delete output/ s3://ben.gnoinski.ca
