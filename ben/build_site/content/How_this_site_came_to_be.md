@@ -17,7 +17,7 @@ My current host system is Ubuntu 17.10 so you may need to adjust this slightly.
 * Make
 * Time (No this is not a library or technology, simply time)
 
-## Let's get started
+## Let's roll
 
 First thing I needed to do was install docker.[Instructions here](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
 
@@ -183,3 +183,4 @@ dev: clean build
 <span style="color:#054300">I am going to host this using Cloudfront backed by s3. I'm undecided if I should continue on with how I'm going to upload and host the site or do that in another post.</span>
 
 Well It has been decided [Part2 Uploading My New Site to S3](uploading-my-new-site-to-s3.html)
+[Part3 Setting up the Cloudfront distribution](setting-up-the-Cloudfront-distribution.html)

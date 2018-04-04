@@ -5,18 +5,12 @@ Tags: AWS, S3, IAM
 
 # Part 2
 
-In this post I will go through the steps that I took to make my site live.
-
-I am starting with a domain that has nothing else on it, no subdomains, mx records nothing. I will be updating the domains Nameservers to Route53.
-
-* <span style="color:#8C4B20">*WARNING* ~ ** If your domain has existing records be very careful following this post, if you change nameservers without setting up all of your other records first your site(s) may stop working!!!** </span> You have been warned, ops responsibly.
+In this post I will go through the steps that I took to make my site live in a s3 website URL.
 
 ### Requirements
 
-* Domain
 * AWS account
 * [AWS cli](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
-* Access to your registrar ** See above warning **
 
 ### steps I'm going to cover
 
@@ -27,7 +21,7 @@ I am starting with a domain that has nothing else on it, no subdomains, mx recor
 1. Enable website hosting
 1. Update Makefile to include upload to s3
 
-### Let's get started
+### Let's roll
 
 ** Create IAM user for myself **
 
