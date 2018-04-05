@@ -182,5 +182,8 @@ dev: clean build
 
 <span style="color:#054300">I am going to host this using Cloudfront backed by s3. I'm undecided if I should continue on with how I'm going to upload and host the site or do that in another post.</span>
 
-Well It has been decided [Part2 Uploading My New Site to S3](uploading-my-new-site-to-s3.html)
-[Part3 Setting up the Cloudfront distribution](setting-up-the-Cloudfront-distribution.html)
+Well It has been decided.
+
+[Part2 Uploading My New Site to S3](uploading-my-new-site-to-s3.html)
+[Part3 Setting up SSL Certs and Route53 cert valication](setting-up-ssl-certs-and-route53-cert-valication.html)
+[Part4 Setting up Cloudfront Distribution](setting-up-cloudfront-distribution.html)
