@@ -1,11 +1,12 @@
-Title: Setting up the Cloudfront distribution
+Title: Setting up SSL Certs and Route53 cert valication
 Date: 2018-04-03 17:30
 Category: AWS
-Tags: AWS, S3, Cloudfront, SSL
+Tags: AWS, Route53, ACM, SSL
 
 # Part 3
 
-In this post I will go through the steps that I took get my site setup behind Cloudfront.
+In this post I will go through the steps that I took get my site setup behind Cloudfront. <span style="color:#054300"> That was wishfull thinking will happen in part 4 now</span>
+
 I am starting with a domain that has nothing else on it, no subdomains, mx records nothing. I will be updating the domains Nameservers to Route53.
 
 * <span style="color:#8C4B20">*WARNING* ~ ** If your domain has existing records be very careful following this post, if you change nameservers without setting up all of your other records first your site(s) may stop working!!!** </span> You have been warned, ops responsibly.
@@ -174,4 +175,67 @@ The above command returned
 
 ** Update DNS on my domain to verify domain for SSL cert **
 
-From the above we can see that we really only need to add 2 dns records, 1 for gnoinski.ca and 1 for gnoinski.com
+From the above we can see that we really only need to add 2 dns records, 1 for gnoinski.ca and 1 for gnoinski.com. Back to our trusty 'aws route53 help' umm 'aws route53 change-resource-record-sets help`? Yeah that looks right. "The request body must include a document with a ChangeResourceRecordSetsRequest element." Ok, what is that? "Use ChangeResourceRecordsSetsRequest to perform the following actions: CREATE DELETE UPSERT" These are new records so I could use CREATE, but I'll use UPSERT instead just on the off chance it was somehow added without me knowing. Alright Continuing on I see that we need to create a file with some JSON to do these updates, and we also need the "Hosted Zone ID". If you look above to the response I got after creating the hosted zone you'll see that my zone id for gnoinski.ca is "Z1UZQNFWWZLI94". The command I'm going to run is 
+`aws route53 change-resource-record-sets --hosted-zone-id Z1UZQNFWWZLI94 --change-batch file://change-resource-record-sets.json` And of course we need some json to go into that file, and it's going to look like
+```
+{
+    "Comment": "SSL validation records",
+    "Changes": [
+        {
+            "Action": "UPSERT",
+            "ResourceRecordSet": {
+                "Name": "_5d5f31cde5783a68480ab2e202803fb7",
+                "Type": "CNAME",
+                "TTL": 300,
+                "ResourceRecords": [
+                {
+                    "Value": "_dd767c2d804d508c3cb53e04c5365bee.acm-validations.aws."
+                }
+                ]
+            }
+        }
+    ]
+}
+```
+
+```
+An error occurred (InvalidChangeBatch) when calling the ChangeResourceRecordSets operation: RRSet with DNS name _5d5f31cde5783a68480ab2e202803fb7. is not permitted in zone gnoinski.ca.
+```
+
+Well s***, I thought I had that one. Maybe it's looking for the full domain name, not just the subdomain for the Name.
+
+```
+{
+    "Comment": "SSL validation records",
+    "Changes": [
+        {
+            "Action": "UPSERT",
+            "ResourceRecordSet": {
+                "Name": "_5d5f31cde5783a68480ab2e202803fb7.gnoinski.ca",
+                "Type": "CNAME",
+                "TTL": 300,
+                "ResourceRecords": [
+                {
+                    "Value": "_dd767c2d804d508c3cb53e04c5365bee.acm-validations.aws."
+                }
+                ]
+            }
+        }
+    ]
+}
+```
+
+Success!
+
+```
+{
+    "ChangeInfo": {
+        "Id": "/change/CPOWGORDFDLMR",
+        "Status": "PENDING",
+        "SubmittedAt": "2018-04-05T03:13:46.410Z",
+        "Comment": "SSL validation records"
+    }
+}
+```
+
+What I did after this is updated the change-resource-record-sets.json file that I am using with the records for gnoinski.com as well as the hosted zone id. I used `aws route53 list-hosted-zones` to get my 2 zones and IDs.
