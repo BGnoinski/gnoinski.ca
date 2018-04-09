@@ -1,5 +1,5 @@
 current_dir = $(shell pwd)
-current_container = $(shell docker ps -f name=gnoinski -q)
+current_container = $(shell docker ps -af name=gnoinski -q)
 
 clean:
 	rm -rf output/*
@@ -16,3 +16,4 @@ dev: clean build
 
 upload:
 	aws s3 sync --delete output/ s3://ben.gnoinski.ca
+	aws cloudfront create-invalidation --distribution-id EW7T5A29H3R3J --paths '/*'

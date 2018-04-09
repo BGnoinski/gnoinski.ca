@@ -1,0 +1,18 @@
+{
+    "Comment": "BensBlog Cloudfront record",
+    "Changes": [
+        {
+            "Action": "UPSERT",
+            "ResourceRecordSet": {
+                "Name": "ben.gnoinski.ca",
+                "Type": "CNAME",
+                "TTL": 300,
+                "ResourceRecords": [
+                {
+                    "Value": "d4ajzg0vlxksf.cloudfront.net"
+                }
+                ]
+            }
+        }
+    ]
+}

@@ -2,7 +2,7 @@ Title: How this site came to be
 Date: 2018-04-01 18:39
 Category: Info
 
-# Part 1
+# Site Setup Part 1
 
 A co-worker was asking for some help on AWS Cloudfront/S3 in slack and [I clicked on the link](https://www.codependentcodr.com) for the page he was setting up. I asked him what he was using and he said pelican and that it was based on Python which is the language I am most familiar with. I saw it supports markdown which I also enjoy using. He mentioned other people were using Jekyll which is based on ruby, so that was a haaaard no for me.
 
@@ -184,6 +184,8 @@ dev: clean build
 
 Well It has been decided.
 
-[Part2 Uploading My New Site to S3](uploading-my-new-site-to-s3.html)
-[Part3 Setting up SSL Certs and Route53 cert valication](setting-up-ssl-certs-and-route53-cert-valication.html)
-[Part4 Setting up Cloudfront Distribution](setting-up-cloudfront-distribution.html)
+* [Part2 Uploading My New Site to S3](uploading-my-new-site-to-s3.html)
+* [Part3 Setting up SSL Certs and Route53 cert valication](set-up-acm-ssl-certs-and-domain-validation-with-route53.html)
+* [Part4 Setting up Cloudfront Distribution](setting-up-cloudfront-distribution.html)
+* [Part5 Invalidating Cloudfront Cache](invalidating-cloudfront-cache.html)
+* [Part6 Final Thoughts On Setting Up My Site](final-thoughts-on-setting-up-my-site.html)

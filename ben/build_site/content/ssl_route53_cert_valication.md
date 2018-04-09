@@ -1,9 +1,9 @@
-Title: Setting up SSL Certs and Route53 cert valication
+Title: Set up ACM SSL Certs and Domain Validation with Route53
 Date: 2018-04-03 17:30
 Category: AWS
 Tags: AWS, Route53, ACM, SSL
 
-# Part 3
+# Site Setup Part 3
 
 In this post I will go through the steps that I took get my site setup behind Cloudfront. <span style="color:#054300"> That was wishfull thinking will happen in part 4 now</span>
 
@@ -170,7 +170,7 @@ The above command returned
 
 ** Update DNS on my domain to verify domain for SSL cert **
 
-From the above we can see that we really only need to add 2 dns records, 1 for gnoinski.ca and 1 for gnoinski.com. Back to our trusty 'aws route53 help' umm 'aws route53 change-resource-record-sets help`? Yeah that looks right. "The request body must include a document with a ChangeResourceRecordSetsRequest element." Ok, what is that? "Use ChangeResourceRecordsSetsRequest to perform the following actions: CREATE DELETE UPSERT" These are new records so I could use CREATE, but I'll use UPSERT instead just on the off chance it was somehow added without me knowing. Alright Continuing on I see that we need to create a file with some JSON to do these updates, and we also need the "Hosted Zone ID". If you look above to the response I got after creating the hosted zone you'll see that my zone id for gnoinski.ca is "Z1UZQNFWWZLI94". The command I'm going to run is 
+From the above we can see that we really only need to add 2 dns records, 1 for gnoinski.ca and 1 for gnoinski.com. Back to our trusty `aws route53 help` umm `aws route53 change-resource-record-sets help`? Yeah that looks right. "The request body must include a document with a ChangeResourceRecordSetsRequest element." Ok, what is that? "Use ChangeResourceRecordsSetsRequest to perform the following actions: CREATE DELETE UPSERT" These are new records so I could use CREATE, but I'll use UPSERT instead just on the off chance it was somehow added without me knowing. Alright Continuing on I see that we need to create a file with some JSON to do these updates, and we also need the "Hosted Zone ID". If you look above to the response I got after creating the hosted zone you'll see that my zone id for gnoinski.ca is "Z1UZQNFWWZLI94". The command I'm going to run is 
 `aws route53 change-resource-record-sets --hosted-zone-id Z1UZQNFWWZLI94 --change-batch file://change-resource-record-sets.json` And of course we need some json to go into that file, and it's going to look like
 ```
 {
@@ -235,4 +235,6 @@ Success!
 
 What I did after this is updated the change-resource-record-sets.json file that I am using with the records for gnoinski.com as well as the hosted zone id. I used `aws route53 list-hosted-zones` to get my 2 zones and IDs.
 
-And with that I think I am going to continue setting up my site in the next post. 
+And with that I think I am going to Cloudfront in the next post. 
+
+* [Part4 Setting up Cloudfront Distribution](setting-up-cloudfront-distribution.html)

@@ -3,7 +3,7 @@ Date: 2018-04-02 17:08
 Category: AWS
 Tags: AWS, S3, IAM
 
-# Part 2
+# Site Setup Part 2
 
 In this post I will go through the steps that I took to make my site live in a s3 website URL.
 
@@ -25,7 +25,7 @@ In this post I will go through the steps that I took to make my site live in a s
 
 ** Create IAM user for myself **
 
-My AWS account hasn't been used for much so I need to create an IAM user for myself. I am going to assign myself the AdministratorAccess policy as well as programmatic access.
+My AWS account hasn't been used for much so I need to [create an IAM user for myself](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html). I am going to assign myself the AdministratorAccess policy as well as programmatic access.
 
 * <span style="color:blue">*Best practice* ~ Your root account should have 2FA (multi factor Authentication) enabled and then not used. Use a separate user for your day to day work. </span>
 * <span style="color:red">*CRITICAL* ~ ** Make sure you do not commit your AWS secret access key and password to github. *ever!* </span>**
@@ -133,3 +133,5 @@ upload:
 So `make upload` publishes my content.
 
 <span style="color:#054300">I was going to continue this article on to include setting up Cloudfront, but this seems like a logical ending to this post. I may amend this post to include it if setting up Cloudfront isn't to long. Or I may make Setting up Cloudfront and Route53 one article.</span>
+
+* [Part3 Setting up SSL Certs and Route53 cert valication](set-up-acm-ssl-certs-and-domain-validation-with-route53.html)
