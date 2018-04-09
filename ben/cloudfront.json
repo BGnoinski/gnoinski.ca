@@ -1,0 +1,46 @@
+{
+   "CallerReference": "InitialCreation",
+   "Aliases": {
+     "Quantity": 2,
+     "Items": ["ben.gnoinski.ca", "ben.goinski.com"]
+   },
+   "DefaultRootObject": "index.html",
+   "Origins": {
+     "Quantity": 1,
+     "Items": [
+       {
+         "Id": "BensBlog",
+         "DomainName": "ben.gnoinski.ca.s3-website.ca-central-1.amazonaws.com",
+         "CustomOriginConfig": {
+           "HTTPPort": 80,
+           "HTTPSPort": 443,
+           "OriginProtocolPolicy": "http-only"
+         }
+       }
+     ]
+   },
+   "DefaultCacheBehavior": {
+     "TargetOriginId": "BensBlog",
+     "ForwardedValues": {
+       "QueryString": false,
+       "Cookies": {
+         "Forward": "none"
+       }
+     },
+     "TrustedSigners": {
+        "Enabled": false,
+        "Quantity": 0
+     },
+     "ViewerProtocolPolicy": "redirect-to-https",
+     "MinTTL": 3600,
+     "Compress": true
+   },
+   "Comment": "BensBlog",
+   "PriceClass": "PriceClass_All",
+   "Enabled": true,
+   "ViewerCertificate": {
+     "ACMCertificateArn": "arn:aws:acm:us-east-1:917788456904:certificate/76a538cf-5eef-43e0-aed9-9d0dd2403990",
+     "SSLSupportMethod": "sni-only",
+     "MinimumProtocolVersion": "TLSv1.2_2018"
+   }
+}

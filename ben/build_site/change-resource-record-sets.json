@@ -1,0 +1,18 @@
+{
+    "Comment": "SSL validation records",
+    "Changes": [
+        {
+            "Action": "UPSERT",
+            "ResourceRecordSet": {
+                "Name": "_488b81035f413f0e3abf32db7ffbbea6.gnoinski.com.",
+                "Type": "CNAME",
+                "TTL": 300,
+                "ResourceRecords": [
+                {
+                    "Value": "_6f7e220fc7496402a267d55ef8e382da.acm-validations.aws."
+                }
+                ]
+            }
+        }
+    ]
+}
