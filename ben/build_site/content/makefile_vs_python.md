@@ -3,17 +3,29 @@ Date: 2018-04-09 16:30
 Category: AWS
 Tags: Python, Command line
 
-# Updating Makefile to a Python script
+# Updating Makefile to a Python script Part 1
 
 I was over on yyjtech slack the other day when [The Codependent Codr](https://www.codependentcodr.com/) mentioned that he is using a Makefile for his project and someone replied "I really hope you just say the word `Makefile` because of very old habit." 
 
 I'm not against Makefiles, I use them at work and I started this project using one. For running a few quick commands, it's really simple. When I was writing my cleanup script I found that sometimes my docker container would die. Like I finish a post, walk away for 12+ hours and come back and the container is no longer running. So I want to do if container exists and running, kill container then remove, else if container exists, but not running, just remove, then carry on. I'm sure anyone who has used Make more than I have is thinking it's 3 lines of code to do what you want. And while I could spend some time learning Make more, I just don't want to right now. I want to try re-doing this in Python, see how much nicer, or more work it is.
 
-My Makefile is currently sitting at 19 lines 68 words. After I stared writing my Python script I got curious about what the difference will be and figure it'll be nice to see lines/word count at random times throughout the process. After writing Part 1 I also decided to add how long each function takes to run just to see if there is any vast difference. 
+My Makefile is currently sitting at 8 lines 21 words. * This is for just the clean function * After I stared writing my Python script I got curious about what the difference will be and figure it'll be nice to see lines/word count at random times throughout the process. After writing Part 1 I also decided to add how long each function takes to run just to see if there is any vast difference. 
 
 ```
+cat Makefile 
+current_container = $(shell docker ps -af name=gnoinski -q)
+
+clean:
+	rm -rf output/*
+ifneq ($(current_container),)
+	docker kill $(current_container)
+	docker rm $(current_container)
+endif
+
+---
+
 wc Makefile 
- 19  68 586 Makefile
+  8  21 187 Makefile
 ```
 
 ### Requirements
@@ -22,6 +34,12 @@ wc Makefile
 * [python subprocess](https://docs.python.org/2/library/subprocess.html)
 * [python argparse](https://docs.python.org/3/library/argparse.html)
 * [python argpars.add_argument()](https://docs.python.org/3/library/argparse.html#argparse.ArgumentParser.add_argument)
+
+** added after my initial best laid plans **
+
+* [python shutil](https://docs.python.org/2/library/shutil.html)
+* [python os](https://docs.python.org/3/library/os.html)
+* [python glob](https://docs.python.org/3.6/library/glob.html)
 
 ### steps I'm going to cover
 
@@ -73,7 +91,7 @@ if __name__ == '__main__':
  33  40 454 newmake.py
 ```
 
-Ok my barebones script is 33 lines 40 words. 1.73 X more lines already, but let's see where this takes us.
+Ok my barebones script is 33 lines 40 words. 4.125 X more lines already, but let's see where this takes us.
 
 Starting with the clean script I figured I would try to a call to remove the files just as I did in the Make file
 
@@ -81,7 +99,7 @@ Starting with the clean script I figured I would try to a call to remove the fil
 def clean():
     call(['rm', '-rf', 'output/*'])
 ```
-Script ran, no error, and all files were left in the output folder. As I suspected [Stack Overflow](https://stackoverflow.com/questions/31977833/rm-all-files-under-a-directory-using-python-subprocess-call?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa) suggests not bothering with `call` for removing files in Python. Python has it's own way of removing files, why not use it? In comes `import shutil`. [After reading the docs](https://docs.python.org/2/library/shutil.html), there is nothing in shutil that will do what I want as shutil.rmtree() "Delete an entire directory tree; path must point to a directory". I knew about [glob.glob('PATH')](https://docs.python.org/3.6/library/glob.html) for getting files in a folder but was hoping I was doing it the long way before. I will also use [os.remove(path, *, dir_fd=None)](https://docs.python.org/3/library/os.html#os.remove)
+Script ran, no error, and all files were left in the output folder. As I suspected [Stack Overflow](https://stackoverflow.com/questions/31977833/rm-all-files-under-a-directory-using-python-subprocess-call?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa) suggests not bothering with `call` for removing files in Python. Python has it's own way of removing files, why not use it? In comes `shutil`. [After reading the docs](https://docs.python.org/2/library/shutil.html), there is nothing in shutil that will do what I want as shutil.rmtree() "Delete an entire directory tree; path must point to a directory". I knew about [glob.glob('PATH')](https://docs.python.org/3.6/library/glob.html) for getting files in a folder but was hoping I was doing it the long way before. I will also use [os.remove(path, *, dir_fd=None)](https://docs.python.org/3/library/os.html#os.remove)
 
 
 * Out with shutil in with glob and os.
@@ -179,13 +197,13 @@ def clean():
             shutil.rmtree(file_to_remove)
 ```
 
-Sometimes it's a good idea to be aware of your surroundings. After I ran the above command and received no errors I thought everything was working perfectly. I edited this file a bit, added some of my commentary. Then ran `ls output` just to marvel in my amazingness. only ALL. OF. MY. FILES. were still there. Then I realized I'm running my dev docker container that republishes my site locally on every article save. So when I made my edits, it just republished everything I had removed. Reran `python3 newmake.py` and everything was removed as I wanted.
+Sometimes it's a good idea to be aware of your surroundings. After I ran `python3 newmake.py` and received no errors I thought everything was working perfectly. I edited this file a bit, added some of my commentary. Then ran `ls output` just to marvel in my amazingness. only ALL. OF. MY. FILES. were still there. Then I realized I'm running my dev docker container that republishes my site locally on every article save. So when I made my edits, it just republished everything I had removed. Reran `python3 newmake.py` and everything was removed as I expected.
 
 <span style="color:#054300">I realized that earlier I showed my updated clean function, but never showed that in main() I haven't built in any of the logic for argparse, so I'm just calling clean directly while testing. By the time you read this post it should hopefully be clear.</span>
 
-Ok I've got it removing the output files, and had a thought. Maybe I should kill/remove any docker containers before removing the output. That way the files don't get re-generated in the moments between removing the output and killing the container.
+Ok I've got it removing the output files, and had a thought. Maybe I should kill/remove any docker containers before removing the output. That way the files don't get re-published in the moments between removing the output and killing the container.
 
-I am now using subprocess.call() in order to get a list of running docker containers, and it works but only prints to console.
+I am now using subprocess.call() in order to get a list of running docker containers.
 
 ```
 def clean():
@@ -200,7 +218,7 @@ e84adae152df
 0
 ```
 
-Well shit it printed the return code, I need the actual output of the command to see if my container is runnig. I checked to see if the above would still return 0's if no containers exist and it does. So I need to find a way to capture the stdout. [Off to google/stack overflow](https://stackoverflow.com/questions/1996518/retrieving-the-output-of-subprocess-call/34873354?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa) It looks like [subprocess.check_output()](https://docs.python.org/2/library/subprocess.html#subprocess.check_output) Will do what I need and it returns [A byte string](https://stackoverflow.com/questions/6224052/what-is-the-difference-between-a-string-and-a-byte-string?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa) 
+Well shit the 'container' variable is the return code, I need the actual output of the command to see if my container exists. I checked to see if the above would still return 0's if no containers exist and it does. So I need to find a way to capture the stdout. [Off to google/stack overflow](https://stackoverflow.com/questions/1996518/retrieving-the-output-of-subprocess-call/34873354?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa) It looks like [subprocess.check_output()](https://docs.python.org/2/library/subprocess.html#subprocess.check_output) Will do what I need and it returns [A byte string](https://stackoverflow.com/questions/6224052/what-is-the-difference-between-a-string-and-a-byte-string?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa) 
 
 ```
 from subprocess import call, check_output
@@ -276,51 +294,42 @@ def clean():
             shutil.rmtree(file_to_remove)
 ```
 
-We are now at 52 lines 95 words 2.73 X the amount of lines in the original make file, and we aren't even close to done yet. Yeehaw.
+We are now at 52 lines 95 words 6.5 X the amount of lines in the original make file, and we aren't even close to done yet. Yeehaw.
 
 Since I have both of these working I'm also interested in seeing how much time each take. I am going to run `make dev && time make clean` followed by `make dev && python3 newmake` a few times and see what if any differences. 
 
 ** make clean **
 ```
 rm -rf output/*
-docker kill d064a9d322e4
-d064a9d322e4
-docker rm d064a9d322e4
-d064a9d322e4
+docker kill b30f88fadd5e
+b30f88fadd5e
+docker rm b30f88fadd5e
+b30f88fadd5e
 
-real	0m0.552s
-user	0m0.275s
-sys	0m0.011s
-
-rm -rf output/*
-docker kill c82ba951662d
-c82ba951662d
-docker rm c82ba951662d
-c82ba951662d
-
-real	0m0.562s
-user	0m0.258s
-sys	0m0.035s
+real	0m0.549s
+user	0m0.236s
+sys	0m0.046s
 
 rm -rf output/*
-docker kill 6537395e0447
-6537395e0447
-docker rm 6537395e0447
-6537395e0447
+docker kill 8b019f3e9aff
+8b019f3e9aff
+docker rm 8b019f3e9aff
+8b019f3e9aff
 
-real	0m0.610s
-user	0m0.284s
+real	0m0.569s
+user	0m0.277s
 sys	0m0.019s
 
 rm -rf output/*
-docker kill 9e4fb63e0c1a
-9e4fb63e0c1a
-docker rm 9e4fb63e0c1a
-9e4fb63e0c1a
+docker kill 54cc1bc83846
+54cc1bc83846
+docker rm 54cc1bc83846
+54cc1bc83846
 
-real	0m0.556s
+real	0m0.592s
 user	0m0.261s
-sys	0m0.029s
+sys	0m0.027s
+
 ```
 
 ** python3 newmake.py **
@@ -359,10 +368,14 @@ sys	0m0.022s
 
 <span style="color:#054300">Keep in mind my Makefile is complete at the time of this count. I may go back and strip it down to it's different parts to do a full complete comparison. Damn it now I need to do that just for my own peace of mind. I'll also have to ammend all of the time counts above. Well like most code 'fixes' I'll likely get around to that after all the other features are built. </span>
 
-Makefile 19 lines 68 words 586 bytes
-newmake.py 52 lines 95 words 1092 bytes
+<del>Makefile 19 lines 68 words 586 bytes</del> <- pythons version of markdown [doesn't and won't](https://github.com/Python-Markdown/markdown/issues/221) support strike through so imagine this is striken through. But from reading the link I found the `<del> </del>` so I guess I'll use that. 
 
-So far between the 2 the Python has been a bunch more work to get going, but also a bit nicer with not having to worry about the container being alive or dead when I try to remove it.
+I went back and actually slimmed down the Make fileto just the clean function, and updated this article through to support that. 
+
+* Makefile 9 lines 25 words
+* newmake.py 52 lines 95 words 1092 bytes
+
+So far between the 2 the Python has been a bunch more work to get going, but also a bit nicer with not having to worry about the container being alive or dead when I try to remove it. Time wise they both run in approximately the same time. 
 
 
 I've been working on this for a couple of hours now, so... I guess I'll just make this part 1.
