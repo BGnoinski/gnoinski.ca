@@ -1,8 +1,10 @@
+#!/usr/bin/python3
 from subprocess import call, check_output
 import argparse
 import glob
 import os
 import shutil
+
 
 def clean():
     container = check_output(['docker', 'ps', '-af', 'name=gnoinski', '-q']).decode().rstrip("\n")
@@ -25,27 +27,32 @@ def clean():
 
 
 def build():
-    pass
+    call(['docker',  'build', '-t', 'gnoinski.ca:latest', '.'])
 
 
 def dev():
-    pass
+    clean()
+    build()
+    call(['docker', 'run', '-td', '-p', '8080:8080', '-v', '%s:/site' % os.getcwd(), '--name', 'bengnoinskidev', '-u', os.getenv('USER'), 'gnoinski.ca:latest', '/bin/bash', '-c', '/site/develop_server.sh start 8080 && sleep 1d']) 
 
 
 def upload():
-    pass
+   call(['aws', 's3', 'sync', '--delete', '%s/output' % os.getcwd(), 's3://ben.gnoinski.ca'])
+   call(['aws', 'cloudfront', 'create-invalidation', '--distribution-id', 'EW7T5A29H3R3J', '--paths', '/*'])
 
 
-def main():
-    clean()
+def main(args):
+    func = FUNCTION_MAP[args.action]
+    func()
 
 
 if __name__ == '__main__':
+    FUNCTION_MAP = {'clean': clean,
+                    'build': build,
+                    'dev': dev,
+                    'upload': upload}
     parser = argparse.ArgumentParser(description='Replace your make file here.')
-    parser.add_argument('--clean')
-    parser.add_argument('--build')
-    parser.add_argument('--dev')
-    parser.add_argument('--upload')
+    parser.add_argument('action', choices=FUNCTION_MAP, help='usage, python3 newmake.py build|dev|clean|upload')
     args = parser.parse_args()
 
-    main()
+    main(args)

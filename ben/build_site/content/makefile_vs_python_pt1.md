@@ -1,7 +1,7 @@
-Title: Updating Makefile to a Python script
+Title: Updating Makefile to a Python script - Clean
 Date: 2018-04-09 16:30
 Category: AWS
-Tags: Python, Command line
+Tags: Python, Make
 
 # Updating Makefile to a Python script Part 1
 
@@ -45,10 +45,9 @@ wc Makefile
 
 * rewriting my clean function
 
-### Let's roll
-
 Give the above docs linked in the requirements a read if you haven't already and you'll be better off. Especially look at subprocess.call as it's what I'll be using to execute tasks. I am going to start off with a template of what I am going to do.
 
+### Let's roll
 
 ``` python
 from subprocess import call
@@ -373,9 +372,14 @@ sys	0m0.022s
 I went back and actually slimmed down the Make fileto just the clean function, and updated this article through to support that. 
 
 * Makefile 9 lines 25 words
-* newmake.py 52 lines 95 words 1092 bytes
+* newmake.py 52 lines 95 words
+
+5.77 Times more lines in python. 
 
 So far between the 2 the Python has been a bunch more work to get going, but also a bit nicer with not having to worry about the container being alive or dead when I try to remove it. Time wise they both run in approximately the same time. 
 
 
 I've been working on this for a couple of hours now, so... I guess I'll just make this part 1.
+
+[Part2 build run dev container](updating-makefile-to-a-python-script-build-run-dev-container.html)
+[Part3 upload to s3, argparse](updating-makefile-to-a-python-script-upload-to-s3-argparse.html)
