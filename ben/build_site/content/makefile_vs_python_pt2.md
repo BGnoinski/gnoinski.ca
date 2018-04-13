@@ -5,7 +5,7 @@ Tags: Python, Make
 
 # Updating Makefile to a Python script Part 2
 
-Since I already have most of the heavy listing done between `call` and `check_output` I think the rest of the Makefile should come together pretty quick. I also had the epiphany that while using argparse I will mimic Make and instead of having switch flags for the function I'll simply make it `python3 newmake.py ACTION` where action is either clean, build, dev, or upload. 
+Since I already have most of the heavy listing done between `call` and `check_output` I think the rest of newmake.py should come together pretty quick. I also had the epiphany that while using argparse I will mimic Make and instead of having switch flags for the functions I'll simply make it `python3 newmake.py ACTION` where ACTION is either clean, build, dev, or upload. 
 
 Some info before we get started.
 
@@ -40,15 +40,11 @@ wc Makefile
 
 * python3 (Most of this stuff will work in 2.7, I think)
 * [python subprocess](https://docs.python.org/2/library/subprocess.html)
-* [python os](https://docs.python.org/3/library/os.html)
+* [python os](https://docs.python.org/3/library/os.html) I think I am going to need os to get the current dir for the -v flag.
+    * ** added after my initial best laid plans **
+    * I also needed os to get an environment variable.
 
-I think I am going to need os to get the current dir for the -v flag.
-
-** added after my initial best laid plans **
-
-I also needed os to get the USER env variable.
-
-### steps I'm going to cover
+### Steps I'm going to cover
 
 * Rewriting my build function
 * Rewriting my dev function
@@ -266,7 +262,7 @@ def dev():
 def main():
     dev()
 ```
-* <span style="color:#054300"> Well no wonder my container randomly died after being away for a while, I've got a sleep 1d there. This should really be replace with supervisor to monitor the develop_server process. </span>
+* <span style="color:#054300"> Well no wonder my container randomly died after being away for a while, I've got a sleep 1d there. This should really be setup with supervisor to monitor the develop_server process. </span>
 
 
 `pyhon3 newmake.py`
@@ -349,12 +345,16 @@ With the Makefile it never went as quick as 1.025s but averaged around 1.07. I s
 wc newmake.py 
   
 ```
+<span style="color:#054300"> I'm not sure how I messed up capturing the output of the above wc. If I had to hazard a guess, I cut it from above and pasted it below instead of copying... </span>
 
 * Makefile  15 lines 54 words
 * newmake.py 53 lines 122 words
 
 So we are now 3.53X more lines in python. 
 
-Since the groundwork is already laid python was pretty quick to setup these functions with a few minor tweaks required.
+Since the groundwork was already laid python was pretty quick to setup these functions with a few minor tweaks required.
 
 Part3 will include the uploading to s3 using the existing AWS cli, I'm not going to introduce boto3 yet even though it is preferred if working with Python and AWS.
+
+* [Part1 Clean](updating-makefile-to-a-python-script-clean.html)
+* [Part3 upload to s3, argparse](updating-makefile-to-a-python-script-upload-to-s3-argparse.html)

@@ -45,14 +45,14 @@ wc Makefile
 * **[shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) <span style="color:red">NEW REQUIREMENTS HERE</span>**
 * [chmod](https://linux.die.net/man/1/chmod)
 
-### steps I'm going to cover
+### Steps I'm going to cover
 
 * Rewriting my upload function
 * Make arparse work
     * ** added after my initial best laid plans **
 * Remove the need for `python3 newmake.py`
 
-Give the above docs linked in the requirements a read if you haven't already and you'll be better off. But since this is part 3 you've already been through them all, twice.
+Give the above docs linked in the requirements a read if you haven't already and you'll be better off. But since this is part 3 you've already been through most of them, twice.
 
 ### Let's roll
 
@@ -124,8 +124,8 @@ def upload():
 
 def main():
     upload()
-
 ```
+
 ```
 python3 newmake.py 
 upload: output/archives.html to s3://ben.gnoinski.ca/archives.html 
@@ -202,12 +202,12 @@ wc newmake.py
   54  136 1587 newmake.py
 ```
 
-2.8421X more words in the python script. 
+2.84X more words in the python script. No noticible difference in speed. Upload could be skewed due to network conditions.
 
 
 ** Make arparse work **
 
-I wanted a way to not have to use a bunch of statements to figure out which argument was used, I just wanted the action on the command line called. I found [This link which does exactly what I want](https://stackoverflow.com/questions/27529610/call-function-based-on-argparse?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa)
+I wanted to avoid a bunch of if statements to figure out which argument was used, I just wanted the action on the command line called. I found [This link which does exactly what I want](https://stackoverflow.com/questions/27529610/call-function-based-on-argparse?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa)
 
 ```
 def main(args):
@@ -227,11 +227,26 @@ if __name__ == '__main__':
     main(args)
 ```
 
-```wc newmake.py 
+```
+wc newmake.py 
   57  151 1747 newmake.py
 ```
 
 Currently at exactly 3X more lines in python than in Make, and it's not executable yet. 
+
+* <span style="color:#054300">I had a thought while revising this, I can simplify the code I got from github.</span>
+```
+    func = FUNCTION_MAP[args.action]
+    func()
+```
+
+<span style="color:#054300">Becomes</span>
+
+```
+FUNCTION_MAP[args.action]()
+```
+
+<span style="color:#054300">I generally try to avoid assiging things to variables simply for the sake of assigning.</span>
 
 ** Remove the need for `python3 newmake.py` **
 
@@ -249,9 +264,7 @@ import glob
 ...
 
 ```
-
 On the command line in the same folder as newmake.py `chmod +x newmake.py`
-
 
 `./newmake.py clean`
 ```
@@ -263,7 +276,7 @@ rm 29c72c49707e
 
 What did I do here. First thing is added a shebang line at the top of my python script `#!/usr/bin/python3` which tells the os to pass the script to the program specified. It's much more elegantly explained in the linked page in the requirements.
 
-Second thing, `chmod +x` this makes the script executable on the command line. So now we can just do `./newmake.py` and since the first line passes the script to '/usr/bin/python3' it works as if we had called `python3 newmake.py' also additional arguments get passed.
+Second thing, `chmod +x` this makes lets the os know this type of file is executable. So now we can just do `./newmake.py` and since the first line passes the script to '/usr/bin/python3' it works as if we had called `python3 newmake.py' also additional arguments get passed.
 
 ## Part 3 Conclusion
 
@@ -287,4 +300,9 @@ user	0m0.306s
 sys	0m0.030s
 ```
 
-I do not think there is any differnece really.
+I do not think there there was any difference in speed, at least not to any human.
+
+In part 4 I will have a brief conclusion.
+
+* [Part1 Clean](updating-makefile-to-a-python-script-clean.html)
+* [Part2 build run dev container](updating-makefile-to-a-python-script-build-run-dev-container.html)

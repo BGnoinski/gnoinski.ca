@@ -42,8 +42,7 @@ def upload():
 
 
 def main(args):
-    func = FUNCTION_MAP[args.action]
-    func()
+    FUNCTION_MAP[args.action]()
 
 
 if __name__ == '__main__':

@@ -7,11 +7,11 @@ Tags: Python, Make
 
 I was over on yyjtech slack the other day when [The Codependent Codr](https://www.codependentcodr.com/) mentioned that he is using a Makefile for his project and someone replied "I really hope you just say the word `Makefile` because of very old habit." 
 
-I'm not against Makefiles, I use them at work and I started this project using one. For running a few quick commands, it's really simple. When I was writing my cleanup script I found that sometimes my docker container would die. Like I finish a post, walk away for 12+ hours and come back and the container is no longer running. So I want to do if container exists and running, kill container then remove, else if container exists, but not running, just remove, then carry on. I'm sure anyone who has used Make more than I have is thinking it's 3 lines of code to do what you want. And while I could spend some time learning Make more, I just don't want to right now. I want to try re-doing this in Python, see how much nicer, or more work it is.
+I'm not against Makefiles, I use them at work and I started this project using one. For running a few quick commands, it's really simple. When I was writing my cleanup script I found that sometimes my docker container would die. Like I finish a post, walk away for <del>12+</del> 24+ hours and come back and the container is no longer running. So I want if container exists and running, kill container then remove, else if container exists, but not running, just remove, then carry on. I'm sure anyone who has used Make more than I have is thinking it's 3 lines of code to do what you want. And while I could spend some time learning Make more, I just don't want to right now. I want to re-do this in Python, see how much nicer, or more work it is.
 
 My Makefile is currently sitting at 8 lines 21 words. * This is for just the clean function * After I stared writing my Python script I got curious about what the difference will be and figure it'll be nice to see lines/word count at random times throughout the process. After writing Part 1 I also decided to add how long each function takes to run just to see if there is any vast difference. 
 
-```
+``` bash
 cat Makefile 
 current_container = $(shell docker ps -af name=gnoinski -q)
 
@@ -34,14 +34,13 @@ wc Makefile
 * [python subprocess](https://docs.python.org/2/library/subprocess.html)
 * [python argparse](https://docs.python.org/3/library/argparse.html)
 * [python argpars.add_argument()](https://docs.python.org/3/library/argparse.html#argparse.ArgumentParser.add_argument)
-
-** added after my initial best laid plans **
-
+    * ** added after my initial best laid plans **
 * [python shutil](https://docs.python.org/2/library/shutil.html)
 * [python os](https://docs.python.org/3/library/os.html)
 * [python glob](https://docs.python.org/3.6/library/glob.html)
+* [subprocess.check_output()](https://docs.python.org/2/library/subprocess.html#subprocess.check_output)
 
-### steps I'm going to cover
+### Steps I'm going to cover
 
 * rewriting my clean function
 
@@ -92,7 +91,7 @@ if __name__ == '__main__':
 
 Ok my barebones script is 33 lines 40 words. 4.125 X more lines already, but let's see where this takes us.
 
-Starting with the clean script I figured I would try to a call to remove the files just as I did in the Make file
+Starting with the clean script I figured I would try use `call` to remove the files just as I did in the Makefile.
 
 ```
 def clean():
@@ -177,7 +176,7 @@ Traceback (most recent call last):
 OSError: [Errno 39] Directory not empty: 'output/category'
 ```
 
-<span style="color:#054300">Ben you idiot, you just caused an exception while trying to handle an exception. Bravo!</span> Well fine then I'll use shutil.rmtree() to remove the directories.
+<span style="color:#054300">Ben you idiot, you just caused an exception while trying to handle an exception. Bravo!</span> Well fine then, I'll use shutil.rmtree() to remove the directories.
 
 * Back in with shutil 
 ```
@@ -217,7 +216,7 @@ e84adae152df
 0
 ```
 
-Well shit the 'container' variable is the return code, I need the actual output of the command to see if my container exists. I checked to see if the above would still return 0's if no containers exist and it does. So I need to find a way to capture the stdout. [Off to google/stack overflow](https://stackoverflow.com/questions/1996518/retrieving-the-output-of-subprocess-call/34873354?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa) It looks like [subprocess.check_output()](https://docs.python.org/2/library/subprocess.html#subprocess.check_output) Will do what I need and it returns [A byte string](https://stackoverflow.com/questions/6224052/what-is-the-difference-between-a-string-and-a-byte-string?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa) 
+Well shit the `container` variable is the return code, I need the actual output of the command to see if my container exists. I checked to see if the above would still return 0's if no containers exist and it does. So I need to find a way to capture the stdout. [Off to google/stack overflow](https://stackoverflow.com/questions/1996518/retrieving-the-output-of-subprocess-call/34873354?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa) It looks like [subprocess.check_output()](https://docs.python.org/2/library/subprocess.html#subprocess.check_output) Will do what I need and it returns [A byte string](https://stackoverflow.com/questions/6224052/what-is-the-difference-between-a-string-and-a-byte-string?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa) 
 
 ```
 from subprocess import call, check_output
@@ -293,9 +292,9 @@ def clean():
             shutil.rmtree(file_to_remove)
 ```
 
-We are now at 52 lines 95 words 6.5 X the amount of lines in the original make file, and we aren't even close to done yet. Yeehaw.
+We are now at 52 lines 95 words 6.5 X the amount of lines in the original Makefile, and we aren't even close to done yet. Yeehaw.
 
-Since I have both of these working I'm also interested in seeing how much time each take. I am going to run `make dev && time make clean` followed by `make dev && python3 newmake` a few times and see what if any differences. 
+Since I have both of these working I'm also interested in seeing how much time each take. I am going to run `make dev && time make clean` followed by `make dev && time python3 newmake.py` a few times and see what if any differences. 
 
 ** make clean **
 ```
@@ -365,21 +364,21 @@ sys	0m0.022s
 
 ## Part 1 Conclusion
 
-<span style="color:#054300">Keep in mind my Makefile is complete at the time of this count. I may go back and strip it down to it's different parts to do a full complete comparison. Damn it now I need to do that just for my own peace of mind. I'll also have to ammend all of the time counts above. Well like most code 'fixes' I'll likely get around to that after all the other features are built. </span>
+<del><span style="color:#054300">Keep in mind my Makefile is complete at the time of this count. I may go back and strip it down to it's different parts to do a full complete comparison. Damn it now I need to do that just for my own peace of mind. I'll also have to ammend all of the time counts above. Well like most code 'fixes' I'll likely get around to that after all the other features are built. </span></del>
 
 <del>Makefile 19 lines 68 words 586 bytes</del> <- pythons version of markdown [doesn't and won't](https://github.com/Python-Markdown/markdown/issues/221) support strike through so imagine this is striken through. But from reading the link I found the `<del> </del>` so I guess I'll use that. 
 
-I went back and actually slimmed down the Make fileto just the clean function, and updated this article through to support that. 
+I went back and slimmed down the Makefile to just the clean function, and updated this article throughout. 
 
-* Makefile 9 lines 25 words
+* Makefile 8 lines 21 words
 * newmake.py 52 lines 95 words
 
-5.77 Times more lines in python. 
+6.5X Times more lines in python. 
 
-So far between the 2 the Python has been a bunch more work to get going, but also a bit nicer with not having to worry about the container being alive or dead when I try to remove it. Time wise they both run in approximately the same time. 
+So far between the 2 the Python has been a bunch more work to get going, but also a bit nicer not having to worry about the container being alive or dead when I try to remove it. Time wise they both run in approximately the same. 
 
 
 I've been working on this for a couple of hours now, so... I guess I'll just make this part 1.
 
-[Part2 build run dev container](updating-makefile-to-a-python-script-build-run-dev-container.html)
-[Part3 upload to s3, argparse](updating-makefile-to-a-python-script-upload-to-s3-argparse.html)
+* [Part2 build run dev container](updating-makefile-to-a-python-script-build-run-dev-container.html)
+* [Part3 upload to s3, argparse](updating-makefile-to-a-python-script-upload-to-s3-argparse.html)

@@ -12,7 +12,7 @@ In this post I will go through the steps that I took to make my site live in a s
 * AWS account
 * [AWS cli](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
 
-### steps I'm going to cover
+### Steps I'm going to cover
 
 1. Create IAM user for myself
 1. Setup AWS cli

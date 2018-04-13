@@ -18,7 +18,7 @@ I am starting with a domain that has nothing else on it, no subdomains, mx recor
 * [AWS cli](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
 * Access to your registrar ** See above warning **
 
-### steps I'm going to cover
+### Steps I'm going to cover
 
 1. Add my domain to route53
 1. Update NS servers for my domain at my registrar

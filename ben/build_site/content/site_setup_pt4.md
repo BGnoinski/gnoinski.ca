@@ -39,7 +39,7 @@ Address: 13.33.151.144
 * AWS account
 * [AWS cli](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
 
-### steps I'm going to cover
+### Steps I'm going to cover
 
 1. Create Cloudfront Distribution
 1. Ensure I have https setup with http > https *Done During the initial distribution setup*

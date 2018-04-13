@@ -13,7 +13,7 @@ In this post I will setup invalidating the Cloudfront cache everytime I upload m
 * [AWS cli](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
 * AWS Cloudfront Distribution
 
-### steps I'm going to cover
+### Steps I'm going to cover
 
 1. Create Cloudfront Invalidation
 1. Invalidate after every upload
