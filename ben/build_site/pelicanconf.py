@@ -3,6 +3,8 @@
 from __future__ import unicode_literals
 
 AUTHOR = 'Ben Gnoinski'
+AUTHOR_TITLE = 'DevOps Engineer'
+
 SITENAME = 'Ben Gnoinski'
 SITEURL = ''
 
@@ -26,12 +28,16 @@ LINKS = (('Pelican', 'http://getpelican.com/'),
          ('You can modify those links in your config file', '#'),)
 
 # Social widget
-SOCIAL = (('You can add links in your config file', '#'),
-          ('Another social link', '#'),)
+SOCIAL = (('Github', 'https://github.com/BGnoinski'),
+          ('Linkedin', 'https://www.linkedin.com/in/ben-gnoinski-34b10890/'),)
 
 DEFAULT_PAGINATION = False
-DISPLAY_CATEGORIES_ON_MENU = True
+DISPLAY_CATEGORIES_ON_MENU = False
 THEME = 'pelican-twitchy'
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
+
+# Theme Settings
+DISPLAY_PAGES_ON_MENU = False
+CUSTOM_CSS = "theme/css/custom.css"

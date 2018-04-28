@@ -1,6 +1,6 @@
 Title: Updating Makefile to a Python script - build run dev container
 Date: 2018-04-10 16:30
-Category: AWS
+Category: Utility
 Tags: Python, Make
 
 # Updating Makefile to a Python script Part 2
@@ -358,3 +358,4 @@ Part3 will include the uploading to s3 using the existing AWS cli, I'm not going
 
 * [Part1 Clean](updating-makefile-to-a-python-script-clean.html)
 * [Part3 upload to s3, argparse](updating-makefile-to-a-python-script-upload-to-s3-argparse.html)
+* [Part4 Conclusion](updating-makefile-to-a-python-script-conclusion.html)

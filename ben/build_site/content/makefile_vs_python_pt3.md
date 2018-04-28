@@ -1,6 +1,6 @@
 Title: Updating Makefile to a Python script - upload to s3, argparse
 Date: 2018-04-11 16:30
-Category: AWS
+Category: Utility
 Tags: Python, Make
 
 # Updating Makefile to a Python script Part 3
@@ -250,13 +250,8 @@ FUNCTION_MAP[args.action]()
 
 ** Remove the need for `python3 newmake.py` **
 
-``` bash
-which python3
-/usr/bin/python3
 ```
-
-```
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 from subprocess import call, check_output
 import argparse
@@ -264,6 +259,10 @@ import glob
 ...
 
 ```
+
+When I originally wrote this article I found where the python3 binary was and then used it. /usr/bin/env is available on both linux and MacOS by default so this is the superior approach as it doesn't matter where the binary is located.
+
+
 On the command line in the same folder as newmake.py `chmod +x newmake.py`
 
 `./newmake.py clean`
@@ -306,3 +305,4 @@ In part 4 I will have a brief conclusion.
 
 * [Part1 Clean](updating-makefile-to-a-python-script-clean.html)
 * [Part2 build run dev container](updating-makefile-to-a-python-script-build-run-dev-container.html)
+* [Part4 Conclusion](updating-makefile-to-a-python-script-conclusion.html)
