@@ -49,10 +49,10 @@ Give the above docs linked in the requirements a read if you haven't already and
 
 ### Steps I'm going to cover
 
-* Rewriting my upload function
-* Make arparse work
-    * ** added after my initial best laid plans **
-* Remove the need for `python3 newmake.py`
+1. Rewriting my upload function
+1. Make arparse work
+    1. ** added after my initial best laid plans **
+1. Remove the need for `python3 newmake.py`
 
 ### Let's roll
 

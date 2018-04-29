@@ -15,8 +15,8 @@ INTRO BLURB IF NEEDED
 
 ### Steps I'm going to cover
 
-* Step1
-* Step2 
+1. Step1
+1. Step2 
 
 Give the docs linked above in the requirements a read if you haven't already and you'll be better off. Especially look at subprocess.call as it's what I'll be using to execute tasks. I am going to start off with a template of what I am going to do.
 

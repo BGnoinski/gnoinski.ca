@@ -21,10 +21,10 @@ Give the docs linked above in the requirements a read if you haven't already and
 
 ### Steps I'm going to cover
 
-* Install awscli (Ubuntu 16.04)
-* Use built in method for configuring credentials and settings
-* Understanding cli profiles
-* Alternate methods of specifying credentials and settings
+1. Install awscli (Ubuntu 17.10)
+1. Use built in method for configuring credentials and settings
+1. Understanding cli profiles
+1. Alternate methods of specifying credentials and settings
 
 ### Let's roll
 

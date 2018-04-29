@@ -44,7 +44,7 @@ Give the above docs linked in the requirements a read if you haven't already and
 
 ### Steps I'm going to cover
 
-* rewriting my clean function
+1. rewriting my clean function
 
 ### Let's roll
 

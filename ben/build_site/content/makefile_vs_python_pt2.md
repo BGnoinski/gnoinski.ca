@@ -48,8 +48,8 @@ Give the above docs linked in the requirements a read if you haven't already and
 
 ### Steps I'm going to cover
 
-* Rewriting my build function
-* Rewriting my dev function
+1. Rewriting my build function
+2. Rewriting my dev function
 
 ### Let's roll
 

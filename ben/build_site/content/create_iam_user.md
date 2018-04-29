@@ -16,7 +16,7 @@ Give the docs linked above in the requirements a read if you haven't already and
 
 ### Steps I'm going to cover
 
-* Create an IAM user and get programmatic credentials 
+1. Create an IAM user and get programmatic credentials 
  
 ### Let's roll
 
