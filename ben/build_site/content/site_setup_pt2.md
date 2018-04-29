@@ -10,7 +10,7 @@ In this post I will go through the steps that I took to make my site live in a s
 ### Requirements
 
 * AWS account
-* [AWS cli](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
+* [AWS cli](aws-cli-basics.html)
 
 ### Steps I'm going to cover
 

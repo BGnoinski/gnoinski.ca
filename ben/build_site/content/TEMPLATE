@@ -1,0 +1,29 @@
+Title: 
+Date: 2018-04-27 18:55
+Category: Utility
+Tags: AWS, awscli
+
+# TITLE 
+
+INTRO BLURB IF NEEDED
+
+
+### Requirements
+
+* [blurb of requrement](link to requirement)
+
+
+### Steps I'm going to cover
+
+* Step1
+* Step2 
+
+Give the docs linked above in the requirements a read if you haven't already and you'll be better off. Especially look at subprocess.call as it's what I'll be using to execute tasks. I am going to start off with a template of what I am going to do.
+
+### Let's roll
+
+## STEP NAME
+
+* [Part2 name](link)
+* [Part3 name](link)
+* [Part4 name](link)

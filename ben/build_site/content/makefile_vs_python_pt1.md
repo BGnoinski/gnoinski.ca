@@ -40,11 +40,11 @@ wc Makefile
 * [python glob](https://docs.python.org/3.6/library/glob.html)
 * [subprocess.check_output()](https://docs.python.org/2/library/subprocess.html#subprocess.check_output)
 
+Give the above docs linked in the requirements a read if you haven't already and you'll be better off. Especially look at subprocess.call as it's what I'll be using to execute tasks. I am going to start off with a template of what I am going to do.
+
 ### Steps I'm going to cover
 
 * rewriting my clean function
-
-Give the above docs linked in the requirements a read if you haven't already and you'll be better off. Especially look at subprocess.call as it's what I'll be using to execute tasks. I am going to start off with a template of what I am going to do.
 
 ### Let's roll
 

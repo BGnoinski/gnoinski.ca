@@ -44,12 +44,12 @@ wc Makefile
     * ** added after my initial best laid plans **
     * I also needed os to get an environment variable.
 
+Give the above docs linked in the requirements a read if you haven't already and you'll be better off. But since this is part 2 you've already been through them all. 
+
 ### Steps I'm going to cover
 
 * Rewriting my build function
 * Rewriting my dev function
-
-Give the above docs linked in the requirements a read if you haven't already and you'll be better off. But since this is part 2 you've already been through them all. 
 
 ### Let's roll
 

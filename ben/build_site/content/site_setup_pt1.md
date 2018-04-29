@@ -17,6 +17,8 @@ My current host system is Ubuntu 17.10 so you may need to adjust this slightly.
 * Make
 * Time (No this is not a library or technology, simply time)
 
+Give the above docs linked in the requirements a read if you haven't already and you'll be better off.
+ 
 ## Let's roll
 
 First thing I needed to do was install docker.[Instructions here](https://docs.docker.com/install/linux/docker-ce/ubuntu/)

@@ -45,14 +45,14 @@ wc Makefile
 * **[shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) <span style="color:red">NEW REQUIREMENTS HERE</span>**
 * [chmod](https://linux.die.net/man/1/chmod)
 
+Give the above docs linked in the requirements a read if you haven't already and you'll be better off. But since this is part 3 you've already been through most of them, twice.
+
 ### Steps I'm going to cover
 
 * Rewriting my upload function
 * Make arparse work
     * ** added after my initial best laid plans **
 * Remove the need for `python3 newmake.py`
-
-Give the above docs linked in the requirements a read if you haven't already and you'll be better off. But since this is part 3 you've already been through most of them, twice.
 
 ### Let's roll
 

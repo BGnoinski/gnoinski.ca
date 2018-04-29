@@ -9,7 +9,7 @@ In this post I will go through the steps that I took get my site setup behind Cl
 
 I am starting with a domain that has nothing else on it, no subdomains, mx records nothing. I will be updating the domains Nameservers to Route53.
 
-* <span style="color:#8C4B20">*WARNING* ~ ** If your domain has existing records be very careful following this post, if you change nameservers without setting up all of your other records first your site(s) may stop working!!!** </span> You have been warned, ops responsibly.
+* <span style="color:#8C4B20">*WARNING* ~ **If your domain has existing records be very careful following this post, if you change nameservers without setting up all of your other records first your site(s) may stop working!!!** </span> You have been warned, ops responsibly.
 
 ### Requirements
 
