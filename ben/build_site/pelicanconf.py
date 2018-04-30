@@ -9,7 +9,7 @@ SITENAME = 'Ben Gnoinski'
 SITEURL = ''
 
 PATH = 'content'
-
+STATIC_PATHS = ['images']
 TIMEZONE = 'America/Vancouver'
 
 DEFAULT_LANG = 'en'
