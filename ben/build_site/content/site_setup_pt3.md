@@ -15,7 +15,7 @@ I am starting with a domain that has nothing else on it, no subdomains, mx recor
 
 * Domain
 * AWS account
-* [AWS cli](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
+* [AWS cli](aws-cli-setup.html)
 * Access to your registrar ** See above warning **
 
 ### Steps I'm going to cover

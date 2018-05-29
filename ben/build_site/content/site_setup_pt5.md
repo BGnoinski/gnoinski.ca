@@ -10,7 +10,7 @@ In this post I will setup invalidating the Cloudfront cache everytime I upload m
 ### Requirements
 
 * AWS account
-* [AWS cli](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
+* [AWS cli](aws-cli-setup.html)
 * AWS Cloudfront Distribution
 
 ### Steps I'm going to cover

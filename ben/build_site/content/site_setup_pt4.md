@@ -37,7 +37,7 @@ Address: 13.33.151.144
 * Domain Name
 * Route53 Hosted Zone (You can use your own DNS provider if you want)
 * AWS account
-* [AWS cli](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
+* [AWS cli](aws-cli-setup.html)
 
 ### Steps I'm going to cover
 
