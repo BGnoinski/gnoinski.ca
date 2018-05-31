@@ -38,8 +38,8 @@ Once this is done you will notice that you have a new folder ~/.aws/ and within 
 
 ```
 [default]
-AWS_ACCESS_KEY_ID=AKIAJKFADCKE2ZB23BHA
-AWS_SECRET_ACCESS_KEY=kr+0w0tgn10gs4ws1ht+kn1hty114u+tcau0yd1d
+aws_access_key_id=AKIAJKFADCKE2ZB23BHA
+aws_secret_access_key=kr+0w0tgn10gs4ws1ht+kn1hty114u+tcau0yd1d
 ```
 
 and config will look like

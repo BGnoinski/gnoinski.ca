@@ -160,12 +160,12 @@ I am going to setup a profile for working with us-east-1.
 
 ```
 [default]
-AWS_ACCESS_KEY_ID=AKIAJKFADCKE2ZB23BHA
-AWS_SECRET_ACCESS_KEY=kr+0w0tgn10gs4ws1ht+kn1hty114u+tcau0yd1d
+aws_access_key_id=AKIAJKFADCKE2ZB23BHA
+aws_secret_access_key=kr+0w0tgn10gs4ws1ht+kn1hty114u+tcau0yd1d
 
 [us-east-1]
-AWS_ACCESS_KEY_ID=AKIAJKFADCKE2ZB23BHA
-AWS_SECRET_ACCESS_KEY=kr+0w0tgn10gs4ws1ht+kn1hty114u+tcau0yd1d
+aws_access_key_id=AKIAJKFADCKE2ZB23BHA
+aws_secret_access_key=kr+0w0tgn10gs4ws1ht+kn1hty114u+tcau0yd1d
 ```
 
 `cat ~/.aws/config`
