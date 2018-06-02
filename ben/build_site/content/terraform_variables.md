@@ -1,7 +1,7 @@
 Title: Terraform Variables 
 Date: 2018-06-01 18:55
-Category: Utility
-Tags: Terraform
+Category: Terraform
+Tags: Terraform, beginner
 
 # Terraform Variables
 
