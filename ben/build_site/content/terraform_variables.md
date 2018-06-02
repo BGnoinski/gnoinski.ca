@@ -166,7 +166,7 @@ Terraform will perform the following actions:
   + aws_vpc.vpc
       id:                               <computed>
       assign_generated_ipv6_cidr_block: "false"
-      cidr_block:                       "10.10.10.0/24"
+      cidr_block:                       "10.10.0.0/16"
       default_network_acl_id:           <computed>
       default_route_table_id:           <computed>
       default_security_group_id:        <computed>
@@ -187,7 +187,7 @@ Plan: 1 to add, 0 to change, 0 to destroy.
 
 ```
 
-We can see that it's going to create our vpc with the 10.10.10.0/24 cidr and tag our vpc with the "Name" "dev"
+We can see that it's going to create our vpc with the 10.10.0.0/16 cidr and tag our vpc with the "Name" "dev"
 
 Now if we run `terraform plan -var-file=test.tfvars` we'll get
 
@@ -201,7 +201,7 @@ Terraform will perform the following actions:
   + aws_vpc.vpc
       id:                               <computed>
       assign_generated_ipv6_cidr_block: "false"
-      cidr_block:                       "10.10.20.0/24"
+      cidr_block:                       "10.20.0.0/16"
       default_network_acl_id:           <computed>
       default_route_table_id:           <computed>
       default_security_group_id:        <computed>
