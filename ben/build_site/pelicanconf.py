@@ -41,3 +41,4 @@ THEME = 'pelican-twitchy'
 # Theme Settings
 DISPLAY_PAGES_ON_MENU = False
 CUSTOM_CSS = "theme/css/custom.css"
+GOOGLE_ANALYTICS = "UA-117528368-1"
