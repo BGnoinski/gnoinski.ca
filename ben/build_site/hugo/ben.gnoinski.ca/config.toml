@@ -1,0 +1,4 @@
+baseURL = "https://ben.gnoinski.ca"
+languageCode = "en-us"
+title = "Ben Gnoinski"
+theme = "hyde-hyde"

@@ -8,3 +8,4 @@ __pycache__
 *.terraform
 *.tfstate
 terraform.tfstate.backup
+ben/build_site/hugo/ben.gnoinski.ca/public*
