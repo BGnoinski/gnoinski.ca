@@ -1,21 +1,24 @@
 ---
-title: "Switching From Pelican To Hugo"
+title: "Switching From Pelican To Hugo - Pt1"
 date: 2018-07-05T03:33:05Z
-draft: true
 categories:
   - blog
 tags: 
   - hugo
 ---
 
-While I have been reasonably happy with Pelican I don't love it. It's not really being maintained, themes are outdated, and I really don't care to do front end work mainly because I don't care how pretty something looks as long as it's functional, and man are there a lot of pretty looking useless websites out there. 
+While I have been reasonably happy with Pelican I don't love it. It's not really being maintained, themes are outdated, and I really don't care to do front end work mainly because I don't care how pretty something looks as long as it's functional. 
 
-In order to build my new site I'm going to follow a similar process as I did with pelican. Create a Docker container for Hugo dev. Create either a Make file or a python script to automate the build process.
+<span style="color:#054300"> Man are there a lot of pretty looking, useless websites out there.</span>
+
+In order to build my new site I'm going to follow a similar process as I did with pelican. Create a Docker container for Hugo dev. Create either a <del>Makefile</del> or a python script to automate the build process.
 
 ### Requirements
 
 * [Hugo install](https://gohugo.io/getting-started/installing/)
 * [Hugo quickstart](https://gohugo.io/getting-started/quick-start/)
+* [My Github repo with Hugo site](https://github.com/BGnoinski/gnoinski.ca/tree/master/ben/build_site/hugo)
+* [My Github repo hugo scripts](https://github.com/BGnoinski/gnoinski.ca/tree/master/ben/scripts/hugo)
 
 Give the docs linked above in the requirements a read if you haven't already and you'll be better off.
 
@@ -25,12 +28,11 @@ Give the docs linked above in the requirements a read if you haven't already and
 1. <a href="#sitesetup">Setup A Site</a>
 1. <a href="#runhugoserver">Run Hugo Server</a>
 
-
 ### Let's roll
 
 **<p id="dockerfile">Build A Docker Container</p>**
 
-From the [docs](https://gohugo.io/getting-started/installing/#debian-and-ubuntu) Looks like we want to run with something like Ubuntu 18.04. I like ubuntu so I'll start with that image. Also it looks like if I want to do code highlighting I need to install the python package 'pygments'
+From the [docs](https://gohugo.io/getting-started/installing/#debian-and-ubuntu) looks like we want to run something like Ubuntu 18.04. I like ubuntu so I'll start with that Docker image. Also it looks like if I want to do code highlighting I need to install the python package 'pygments'
 
 Dockerfile
 ```
@@ -68,8 +70,9 @@ Successfully tagged hugo:latest
 
 I now have a docker container tagged locally with hugo:latest
 
+`docker images`
+
 ```
-docker images
 REPOSITORY                      TAG                 IMAGE ID            CREATED             SIZE
 hugo                            latest              6fb84c6bf962        26 seconds ago      468MB
 ```
@@ -118,7 +121,7 @@ drwxr-xr-x   1 root root 4096 May 26 00:45 var
 
 Looks like i'm currently in the root, and there is that hugo folder from the docker command awesome.
 
-Now we have a container running with all of our requirements a folder called /hugo that should be the local folder I ran this from. Now to actually start with Hugo. To the [Quickstart guid](https://gohugo.io/getting-started/quick-start/)
+Now we have a container running with all of our requirements a folder called /hugo that should be the local folder I ran this from. Now to actually start with Hugo. To the [Quickstart guide](https://gohugo.io/getting-started/quick-start/)
 
 Looks like we need to run `hugo new site quickstart` I have a feeling that 'quickstart' is the site name. So I'll run `hugo new site ben.gnoinski.ca`
 
@@ -138,7 +141,7 @@ Just a few more steps and you're ready to go:
 Visit https://gohugo.io/ for quickstart guide and full documentation.
 ```
 
-So it looks like I need a theme, after browsing [some themes](https://themes.gohugo.io/) I'm going with Hyde Hyde as it's pretty similar to my current layout. 
+So it looks like I need a theme, after browsing [some themes](https://themes.gohugo.io/) I'm going with Hyde-Hyde as it's pretty similar to my current layout. 
 
 ```
 cd ben.gnoinski.ca
@@ -173,10 +176,11 @@ docker run -td -v $(pwd):/hugo hugo:latest
 2e15da4278e5c98c505c5b56e3b19be2300288e87093fa5c3bfd235b800406c5
 ```
 
-get into the container
+Get into the container console
 `docker exec -it 2e15 /bin/bash`
 
 go back into /hugo
+
 ```
 cd /hugo
 ```
@@ -216,7 +220,7 @@ draft: true
 ---git submodule add https://github.com/htr3n/hyde-hyde
 ```
 
-Ok not too different than Pelican.
+Ok not too different than Pelican. One thing to note you can use Hugo built in new post function, or you can just create your own .md files and Hugo will pick them up as long as they are formatted correctly. I have a TEMPLATE that I create all of my posts off of. 
 
 **<p id="runhugoserver">Run Hugo Server</p>**
 
@@ -246,7 +250,7 @@ Web Server is available at http://localhost:1313/ (bind address 127.0.0.1)
 Press Ctrl+C to stop
 ```
 
-Keep in mind that since this is inside docker localhost:1313 is local within the docker container. You could not go onto a browser on your system and have this work. Yet. In another terminal window I am going to connect to the same docker container as this one is currently occupied running the hugo server. 
+Keep in mind that since this is inside docker localhost:1313 is local within the docker container. You could not go onto a browser on your system and have this work. Yet. In another terminal window I am going to connect to the same docker container because this console is currently running the hugo server process.
 
 Back on my host system I forgot the docker conatiner, so let's just get all running containers.
 
@@ -265,7 +269,8 @@ Ok well I'm not going to modify my docker file at this point as I don't need cur
 
 ```
 apt-get install -y curl
-APT-GET OUTPUT HERE
+... APT-GET OUTPUT HERE
+
 curl localhost:1313
 
 <!DOCTYPE html>
@@ -276,6 +281,7 @@ curl localhost:1313
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Enable responsiveness on mobile devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+...
 ```
 
 Alright my hugo site is working within the container. I need to make it accessible to my local browser.
@@ -336,8 +342,12 @@ Web Server is available at http://localhost:1313/ (bind address 0.0.0.0)
 Press Ctrl+C to stop
 ```
 
-And I have a website available through chrome at https://localhost:1313 ! If you've been following along the previous link should work for you!
+And I have a website available through chrome at http://localhost:1313 ! If you've been following along the previous link should work for you too!
 
-Now I am going to customize 'config.toml' with my info.
+Now I am going to update 'config.toml' with my info.
 
 That's it for this post. In my next post I am going to convert all of my pelican posts to hugo.
+
+* [Switching From Pelican To Hugo - Pt2](/posts/hugo_switch_pt2/)
+* [Switching From Pelican To Hugo - Pt3](/posts/hugo_switch_pt3/)
+* [Switching From Pelican To Hugo - Conclusion](/posts/hugo_switch_conclusion/)

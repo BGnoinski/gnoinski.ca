@@ -1,26 +1,20 @@
 ---
-title: "Converting Pelican posts to Hugo"
+title: "Switching From Pelican To Hugo - Pt2"
 date: 2018-07-06T02:38:05Z
-draft: true
 categories:
   - blog
 tags: 
   - hugo
 ---
 
-I have a bunch of posts for pelican that I need to convert into hugo syntax.
-I could modify each file by hand... But no, just no. We'll use tools to make this happen.
-
-
-### Requirements
-
-* 
+I have a bunch of posts for Pelican that I need to convert into Hugo syntax.
+I could modify each file by hand... But no, just no, well maybe some parts. We'll use tools to make most of this happen.
 
 ### Steps I'm going to cover
 
 1. <a href="#copyfiles">Copy Posts</a>
 1. <a href="#postupdate">Script Post Update</a>
-1. <a href="#updateall">Update All Posts</a>
+1. <a href="#updatemetadata">Update Metadata</a>
 
 
 ### Let's roll
@@ -47,19 +41,15 @@ This step is going to be quick. At a high level my file structure looks like:
 
 I used the command `tree` to get the folder structure like the above.
 
-I just need to `cd build_site/content` and then run `cp -r * ../../hugo/ben.gnoinski.ca/content/posts`
+I just need to `cd build_site/content` and then run
+
+`cp -r * ../../hugo/ben.gnoinski.ca/content/posts`
 
 That's it files copied.
 
 **<p id="postupdate">Script Post Update</p>**
 
-Alright here is where the magic is going to happen. I need to modify a few things in my files. First and foremost the file metatadata at the top needs to be converted to hugo format. And a log of my files have 
-
-```
-** <p> Stuff here </p> **
-```
-
-For link anchors. Apparently the ** should not have any whitespace around it, woops. 
+Alright here is where the magic happens. I need to modify a few things in my files. First and foremost the file metatadata at the top needs to be converted to hugo format. 
 
 Current Pelican meta data looks like:
 ```
@@ -85,7 +75,15 @@ tags:
 ---
 ```
 
-What I did so that I can quickly revert a post after running my code is simply run `git add POST.md` so that I can just do a `git checkout POST.md` and any changes I made will be reverted. 
+Also a lot of my files have 
+
+```
+** <p> Stuff here </p> **
+```
+
+For link anchors. Apparently the ** should not have any whitespace around it, woops. 
+
+* <span style="color:#054300"> *Info* What I did so that I can quickly revert a post after running my code is simply run `git add POST.md` so that I can just do a `git checkout POST.md` and any changes I made will be reverted.</span>
 
 So right away I need to change the case of the first few words to lower case. I am going to use `sed` to accomplish this.
 
@@ -96,7 +94,7 @@ sed -i 's|Category:|categories:|g' awscli_setup.md
 sed -i 's|Tags:|tags:|g' awscli_setup.md
 ```
 
-I also snuck in add the --- at the top. So I now need to add a --- after, I googled for 'sed insert at line in file' and this was the first result https://stackoverflow.com/questions/6537490/insert-a-line-at-specific-line-number-with-sed-or-awk
+I also snuck in adding --- at the top of the file. So I now need to add a --- after, I googled for 'sed insert at line in file' and this was the first result https://stackoverflow.com/questions/6537490/insert-a-line-at-specific-line-number-with-sed-or-awk
 
 ```
 sed -i '6i---' awscli_setup.md
@@ -117,7 +115,7 @@ tags: AWS, cli
 
 The categories and tags still need to be on their own lines.
 
-I just came back from a walk and decided that I can just have the categories and tags on their own lines now, and insert the trailing --- on line 8. This won't work for multiple tags but it's a start.
+I just came back from a walk and decided that I can put categories: and tags: on their own lines first, then insert the trailing --- on line 8.
 
 ```
 sed -i 's|Title:|---\ntitle:|g' awscli_setup.md
@@ -127,15 +125,31 @@ sed -i 's|Tags:|tags:\n  -|g' awscli_setup.md
 sed -i '8i---' awscli_setup.md
 ```
 
-I [found here](https://www.linuxquestions.org/questions/linux-newbie-8/sed-substitute-a-word-only-in-a-certain-line-786438/) That you can use sed on a specific line number like so
+Metadata now looks like:
+
+```
+---
+title: AWS cli setup
+date: 2018-04-29 14:25
+categories:
+  - Utility
+tags:
+  - AWS, cli
+---
+```
+
+
+Now that I have the categories and tags on their own lines, I [found here](https://www.linuxquestions.org/questions/linux-newbie-8/sed-substitute-a-word-only-in-a-certain-line-786438/) that you can use sed on a specific line number like so
 
 `sed -i '7 s|,|\n  -|g'`
 
-And then working my way up in case there were multiple categories
+Because my tags were , seprated before, this line will replace any , with a newline, 2 spaces, and a - to form my yaml list.
+
+<span style="color:#054300"> *Info* I started making my list on the tags(line 7), as it will not change which line the categories are on (line5). Had I done the categories on line 5 first, the Tags may have started on line 8 instead of 7. </span>
 
 `sed -i '5 s|,|\n  -|g'`
 
-Can't forget the '** <' and '> **' udates that I need to do:
+Can't forget the '** <' and '> **' updates that I need to do which don't have anything to do with the metadata, but since I'll be running this on all of the posts, I'll include it anyways. 
 
 ```
 sed -i 's|Title:|---\ntitle:|g' awscli_setup.md
@@ -149,11 +163,26 @@ sed -i 's|> \*\*|>\*\*|g' awscli_setup.md
 sed -i 's|\*\* <|\*\*<|g' awscli_setup.md
 ```
 
-**<p id="updateall">Update All Posts</p>**
+Metadata now looks like:
 
-Now that we have a way to update the information I want to update all of my posts. I could find all the file names and copy and paste the above lines for each file or I can build a script and dynamically find all of my files.
+```
+--
+title: AWS cli setup
+date: 2018-04-29 14:25
+categories:
+  - Utility
+tags:
+  - AWS
+  - cli
+---
+```
+Neat.
 
-So I am going to create a file called 'update.sh` and populate it as follows:
+**<p id="updatemetadata">Update Metadata</p>**
+
+Now that we have a way to update the information I need to update all of my posts. I could get all of the posts filenames and copy and paste the above sed lines for each file like I did on my awscli_setup.md example or I can build a script that takes a filename as an input, then dynamically find all of my posts and execute the script. 
+
+So I am going to create a file called [update_posts.sh](https://github.com/BGnoinski/gnoinski.ca/blob/master/ben/scripts/hugo/update_posts.sh) and populate it as follows:
 
 ```
 #!/bin/bash
@@ -170,24 +199,24 @@ sed -i 's|\*\* <|\*\*<|g' $1
 
 Notice I have replaced awscli_setup.md with $1 because when I call this script I am going to pass it a file name as the first argument like so
 
-```
-update.sh awscli_setup.md
-```
+
+`update_posts.sh awscli_setup.md`
+
 
 But I still don't want to call each file individually. So I'll use find to run it for me.
 
-```
-find . -name "*.md" -exec bash update.sh {} \;
-```
+
+`find . -name "*.md" -exec bash update_posts.sh {} \;`
+
 
 And just like that all of my meta data has been updated.
 
-The last thing I need to do is fix the time. Hopefully this won't be too hard but might have to jump into python. 
-
-So first lets figure out how to convert my date from the old to the new. I'm thinking the `date` command
+Last thing I need to fix is the date format. Hopefully this won't be too hard but might have to jump into python. First lets figure out how to convert my date from the old to the new. I'm thinking the `date` command
 
 2018-04-29 14:25
-to 
+
+Needs to be
+
 2018-04-29T07:25:00Z
 
 I needed to know if I could input a date into `date` which [I can](https://unix.stackexchange.com/questions/107290/extract-date-from-a-variable-in-a-different-format)
@@ -199,7 +228,7 @@ DATE="2018-04-29 14:25"; date -d"$DATE" +%Y-%m-%dT%TZ
 2018-04-29T14:25:00Z
 ```
 
-Ok, that looks correct. It's not the correct Zulu time as I'm currently -7 but I'm not too worried about the time and I can fix that later if I really want to. 
+Ok, that looks correct. It's not the correct Zulu time as I'm currently -7 but I'm not too worried about the time and I can fix that later if I really want to. The time isn't currently shown on the posts, so it's likely only used for post ordering. 
 
 I though about doing some clever regex to parse through all the files finding the date and modifying it, but it will likely take me longer to write that then to find all of the current dates in the files and quickly build a sed to fix them. So first I need to find all of the dates in my files. in comes grep. 
 
@@ -220,7 +249,7 @@ convert_posts_from_pelican.md:142:sed -i 's|Date:|date:|g' awscli_setup.md
 convert_posts_from_pelican.md:161:sed -i 's|Date:|date:|g' $1
 terraform_conditionals.md:3:date: 2018-06-14 19:46
 site_setup_pt3.md:3:date: 2018-04-03 17:30
-update.sh:3:sed -i 's|Date:|date:|g' $1
+update_posts.sh:3:sed -i 's|Date:|date:|g' $1
 site_setup_pt2.md:3:date: 2018-04-02 17:08
 awscli_setup.md:3:date: 2018-04-29 14:25
 terraform_loops.md:3:date: 2018-06-03 07:56
@@ -239,7 +268,6 @@ makefile_vs_python_pt3.md:3:date: 2018-04-11 16:30
 I know that some of those files have dates I don't want to modify so I'll remove them and trim my list. Leaving me with:
 
 ```
-grep -Hrn date:
 makefile_vs_python_pt1.md:3:date: 2018-04-09 16:30
 terraform_variables.md:3:date: 2018-06-01 18:55
 site_setup_pt5.md:3:date: 2018-04-06 17:30
@@ -267,11 +295,11 @@ I think something like this should work:
 
 sed "3 s|2018-04-29 14:25|$(DATE=2018-04-29 14:25; date -d"$DATE" +%Y-%m-%dT%TZ)|g" awscli_setup.md
 
-Yeah that really didn't work because $() tries to execute a command and after it did all of the replacing the command was not found so after a minor tweak we get:
+Yeah that really didn't work because $() executes the result of the commands in () the command was not found so after a minor tweak we get:
 
 NEWDATE=$(DATE="2018-04-29 14:25"; date -d "$DATE" +%Y-%m-%dT%TZ); sed -i "3 s|2018-04-29 14:25|$NEWDATE|g" awscli_setup.md
 
-And this works, now I am going to use the magic of my text editor with multiline capability to write all of the needed sed commands. 
+And this worked, now I am going to use the magic of my text editors multiline capability to write all of the needed sed commands. 
 
 
 And we end up with this:
@@ -298,4 +326,8 @@ NEWDATE=$(DATE="2018-04-19 19:30"; date -d "$DATE" +%Y-%m-%dT%TZ); sed -i "3 s|2
 NEWDATE=$(DATE="2018-04-11 16:30"; date -d "$DATE" +%Y-%m-%dT%TZ); sed -i "3 s|2018-04-11 16:30|$NEWDATE|g" makefile_vs_python_pt3.md
 ```
 
-And just like that all of my posts have been updated. yay!
+And just like that all of my posts metadata have been updated. yay!
+
+* [Switching From Pelican To Hugo - Pt1](/posts/hugo_switch_pt1/)
+* [Switching From Pelican To Hugo - Pt3](/posts/hugo_switch_pt3/)
+* [Switching From Pelican To Hugo - Conclusion](/posts/hugo_switch_conclusion/)

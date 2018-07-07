@@ -1,20 +1,17 @@
 ---
-title: "Updating Posts"
+title: "Switching From Pelican To Hugo - Pt3"
 date: 2018-07-06T03:22:05Z
-draft: true
 categories:
   - blog
 tags:
   - hugo
 ---
 
-Hugo has a different way of generating links so I need to do a couple of things to make sure the new blog doesn't break old links.
-
-Pelican took the title of the post, put - inbetween the words and added .html at the end.
+Hugo has a different way of generating links so I need to do a couple of things to make sure the new blog doesn't break old links. Pelican took the title of the post, replaced spaces with - and added .html at the end.
 
 'updating-makefile-to-a-python-script-clean.html'
 
-Hugo takes the file name (I think my urls happen to be what I name the file) and makes what they call "pretty" urls
+Hugo takes the file name, I think (my urls happen to be what I name the file), and makes what they call "pretty" urls
 
 '/posts/hugo_switch_pt1/'
 
@@ -32,10 +29,10 @@ Give the docs linked above in the requirements a read if you haven't already and
 
 1. <a href="#currenttitles">Get Current Titles</a>
 1. <a href="#createaliases">Transform Titles To Links</a>
-1. <a href="#addaliases">Add Aliases to Post</a>
+1. <a href="#addaliases">Add Aliases to Posts</a>
 1. <a href="#updateexisting">Update Existing Links On My Posts</a>
     * **added after my initial best laid plans**
-* **<a href="#staticfiles">Update Static Files</a>**
+* <a href="#staticfiles">Update Static Files</a>
 
 ### Let's roll
 
@@ -73,7 +70,7 @@ posts/hugo_switch_pt2.md:111:title: AWS cli setup
 posts/makefile_vs_python_pt3.md:2:title: Updating Makefile to a Python script - upload to s3, argparse
 ```
 
-As you can see almost of all 'title:' is located on line 2, the only ones that aren't are in the hugo_switch but we can just skip those entirely as they were never in pelican. And of course we'll skip TEMPLATE.
+As you can see almost of all 'title:'s are located on line 2, the only ones that aren't are in the hugo_switch posts but we can just skip those entirely as they were never in pelican. And of course we'll skip TEMPLATE.
 
 A few things I wanted to Clarify
 * Does pelican just convert all spaces to -? No, all words are single hypen sperated
@@ -146,7 +143,7 @@ Just to confirm that everything is good there I am going to use my text editor a
 
 ```
 curl -sSL -D - localhost:8080/updating-makefile-to-a-python-script-clean.html -o /dev/null
-curl -sSL -D - localhost:8080/terraform-variables-.html -o /dev/null
+curl -sSL -D - localhost:8080/terraform-variables.html -o /dev/null
 curl -sSL -D - localhost:8080/invalidating-cloudfront-cache.html -o /dev/null
 curl -sSL -D - localhost:8080/create-an-aws-iam-user.html -o /dev/null
 curl -sSL -D - localhost:8080/updating-makefile-to-a-python-script-build-run-dev-container.html -o /dev/null
@@ -244,7 +241,10 @@ ls ../../hugo/ben.gnoinski.ca/static/
 images
 ```
 
-So now I have the images in hugos static folder. Now how to access them and make sure my posts(1) that has images is updated.
+Now how to access them and make sure my posts(1) that has images is updated. [Refer to the docs](https://gohugo.io/content-management/static-files/)
 
 That was as simple as finding {filename} and removing it in my post that had images.
 
+* [Switching From Pelican To Hugo - Pt1](/posts/hugo_switch_pt1/)
+* [Switching From Pelican To Hugo - Pt2](/posts/hugo_switch_pt2/)
+* [Switching From Pelican To Hugo - Conclusion](/posts/hugo_switch_conclusion/)
