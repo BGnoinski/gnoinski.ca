@@ -2,7 +2,7 @@ baseURL = "https://ben.gnoinski.ca"
 languageCode = "en-us"
 title = "Ben Gnoinski"
 theme = "hyde-hyde"
-googleAnalytics = "UA-117528368-1"
 
 [params]
   description = "DevOps Engineer"
+

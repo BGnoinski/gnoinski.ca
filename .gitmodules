@@ -1,6 +1,4 @@
+
 [submodule "ben/build_site/hugo/ben.gnoinski.ca/themes/hyde-hyde"]
 	path = ben/build_site/hugo/ben.gnoinski.ca/themes/hyde-hyde
-	url = https://github.com/htr3n/hyde-hyde
-[submodule "ben/build_site/pelican/pelican-twitchy"]
-	path = ben/build_site/pelican/pelican-twitchy
-	url = https://github.com/BGnoinski/pelican-twitchy.git
+	url = https://github.com/BGnoinski/hyde-hyde.git
