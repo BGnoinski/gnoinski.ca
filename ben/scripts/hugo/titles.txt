@@ -1,0 +1,17 @@
+Updating Makefile to a Python script - Clean
+Terraform Variables
+Invalidating Cloudfront Cache
+Create an AWS IAM user
+Updating Makefile to a Python script - build run dev container
+Terraform Interpolation
+Terraform Conditionals
+Set up ACM SSL Certs and Domain Validation with Route53
+Uploading My New Site To S3
+AWS cli setup
+Terraform Count and Loops
+How this site came to be
+Final Thoughts On Setting Up My Site
+Setting up Cloudfront Distribution
+Introduction to Terraform
+Updating Makefile to a Python script - Conclusion
+Updating Makefile to a Python script - upload to s3, argparse

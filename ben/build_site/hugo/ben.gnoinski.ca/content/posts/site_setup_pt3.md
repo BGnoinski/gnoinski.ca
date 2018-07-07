@@ -1,4 +1,6 @@
 ---
+aliases:
+  - set-up-acm-ssl-certs-and-domain-validation-with-route53.html
 title: Set up ACM SSL Certs and Domain Validation with Route53
 date: 2018-04-03T17:30:00Z
 categories:
@@ -20,8 +22,8 @@ I am starting with a domain that has nothing else on it, no subdomains, mx recor
 
 * Domain
 * AWS account
-* [AWS cli](aws-cli-setup.html)
-* Access to your registrar ** See above warning **
+* [AWS cli](/aws-cli-setup.html)
+* Access to your registrar **See above warning**
 
 ### Steps I'm going to cover
 
@@ -38,7 +40,7 @@ I am starting with a domain that has nothing else on it, no subdomains, mx recor
 
 ### Let's roll
 
-** Add my domain to route53 **
+**Add my domain to route53**
 
 Let's see what we get with `aws route53 help` I know they call domains "Hosted Zones" so let's checkout `aws route53 create-hosted-zone help` Looks like I'm going to end up with `aws route53 create-hosted-zone --name gnoinski.ca --caller-reference randomrequiredstring` That returned me the following. I am going to take special note of the NameServers in the DelegationSet, this is what we need to update at our registrar.
 
@@ -70,13 +72,13 @@ Let's see what we get with `aws route53 help` I know they call domains "Hosted Z
 }
 ```
 
-** Update NS servers for my domain at my registrar **
+**Update NS servers for my domain at my registrar**
 
 I use namecheap so I went to [http://www.google.com](http://www.google.com) and searched for "namecheap update nameservers" [I found namecheaps page in the results](https://www.namecheap.com/support/knowledgebase/article.aspx/767/10/how-can-i-change-the-nameservers-for-my-domain) and didn't actually follow the instructions as I've updated NS records hundreds of times. I hope the page I just linked is correct as it is Namecheaps page, but if it's not updated or correct you can just follow the search procedure above to hopefully find some correct instructions.
 
 * <span style="color:#054300">*Info* ~ Back in the old days it was always said that DNS changes can take 24-72 hours to propogate worldwide. In my experience DNS changes usually propogate with 20 minutes for big stuff like NS server updates, and under a minute for individual record changes if your NS server hasn't changed. However you also set a TTL on your records, defaults to 300s I think, so it's possible that local clients will not see the change instantly. [http://whatsmydns.net](http://whatsmydns.net) is my goto for checking DNS. I'm sure there are better ones out there, it's just muscle memory for me at this point. </span>
 
-** Get ACM SSL wildcard Cert for my domain **
+**Get ACM SSL wildcard Cert for my domain**
 
 I eventually want my site to be https so I need a SSL certificate. Lukily AWS provides Free SSL certs. *Free as in puppies, you can only use AWS certs with AWS services, so you're paying one way or another.* I have heard good things about [let's encrypt certs](https://letsencrypt.org/) but never used them.
 
@@ -173,7 +175,7 @@ The above command returned
 
 ```
 
-** Update DNS on my domain to verify domain for SSL cert **
+**Update DNS on my domain to verify domain for SSL cert**
 
 From the above we can see that we really only need to add 2 dns records, 1 for gnoinski.ca and 1 for gnoinski.com. Back to our trusty `aws route53 help` umm `aws route53 change-resource-record-sets help`? Yeah that looks right. "The request body must include a document with a ChangeResourceRecordSetsRequest element." Ok, what is that? "Use ChangeResourceRecordsSetsRequest to perform the following actions: CREATE DELETE UPSERT" These are new records so I could use CREATE, but I'll use UPSERT instead just on the off chance it was somehow added without me knowing. Alright Continuing on I see that we need to create a file with some JSON to do these updates, and we also need the "Hosted Zone ID". If you look above to the response I got after creating the hosted zone you'll see that my zone id for gnoinski.ca is "Z1UZQNFWWZLI94". The command I'm going to run is 
 `aws route53 change-resource-record-sets --hosted-zone-id Z1UZQNFWWZLI94 --change-batch file://change-resource-record-sets.json` And of course we need some json to go into that file, and it's going to look like
@@ -242,4 +244,8 @@ What I did after this is updated the change-resource-record-sets.json file that 
 
 And with that I think I am going to Cloudfront in the next post. 
 
-* [Part4 Setting up Cloudfront Distribution](setting-up-cloudfront-distribution.html)
+* [Part1 How This Site Came To Be](/how-this-site-came-to-be.html)
+* [Part2 Uploading My New Site to S3](/uploading-my-new-site-to-s3.html)
+* [Part4 Setting up Cloudfront Distribution](/setting-up-cloudfront-distribution.html)
+* [Part5 Invalidating Cloudfront Cache](/invalidating-cloudfront-cache.html)
+* [Part6 Final Thoughts On Setting Up My Site](/final-thoughts-on-setting-up-my-site.html)

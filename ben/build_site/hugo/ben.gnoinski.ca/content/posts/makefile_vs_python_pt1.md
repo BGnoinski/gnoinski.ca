@@ -1,4 +1,6 @@
 ---
+aliases:
+  - updating-makefile-to-a-python-script-clean.html
 title: Updating Makefile to a Python script - Clean
 date: 2018-04-09T16:30:00Z
 categories:
@@ -37,7 +39,7 @@ wc Makefile
 * [python subprocess](https://docs.python.org/2/library/subprocess.html)
 * [python argparse](https://docs.python.org/3/library/argparse.html)
 * [python argpars.add_argument()](https://docs.python.org/3/library/argparse.html#argparse.ArgumentParser.add_argument)
-    * ** added after my initial best laid plans **
+    * **added after my initial best laid plans**
 * [python shutil](https://docs.python.org/2/library/shutil.html)
 * [python os](https://docs.python.org/3/library/os.html)
 * [python glob](https://docs.python.org/3.6/library/glob.html)
@@ -104,6 +106,7 @@ Script ran, no error, and all files were left in the output folder. As I suspect
 
 
 * Out with shutil in with glob and os.
+
 ```
 from subprocess import call
 import argparse
@@ -181,7 +184,8 @@ OSError: [Errno 39] Directory not empty: 'output/category'
 
 <span style="color:#054300">Ben you idiot, you just caused an exception while trying to handle an exception. Bravo!</span> Well fine then, I'll use shutil.rmtree() to remove the directories.
 
-* Back in with shutil 
+* Back in with shutil
+
 ```
 from subprocess import call
 import argparse
@@ -299,7 +303,7 @@ We are now at 52 lines 95 words 6.5 X the amount of lines in the original Makefi
 
 Since I have both of these working I'm also interested in seeing how much time each take. I am going to run `make dev && time make clean` followed by `make dev && time python3 newmake.py` a few times and see what if any differences. 
 
-** make clean **
+**make clean**
 ```
 rm -rf output/*
 docker kill b30f88fadd5e
@@ -333,7 +337,7 @@ sys	0m0.027s
 
 ```
 
-** python3 newmake.py **
+**python3 newmake.py**
 ```
 kill a8c9f0efdfd2
 a8c9f0efdfd2
@@ -383,6 +387,6 @@ So far between the 2 the Python has been a bunch more work to get going, but als
 
 I've been working on this for a couple of hours now, so... I guess I'll just make this part 1.
 
-* [Part2 build run dev container](updating-makefile-to-a-python-script-build-run-dev-container.html)
-* [Part3 upload to s3, argparse](updating-makefile-to-a-python-script-upload-to-s3-argparse.html)
-* [Part4 Conclusion](updating-makefile-to-a-python-script-conclusion.html)
+* [Part2 build run dev container](/updating-makefile-to-a-python-script-build-run-dev-container.html)
+* [Part3 upload to s3, argparse](/updating-makefile-to-a-python-script-upload-to-s3-argparse.html)
+* [Part4 Conclusion](/updating-makefile-to-a-python-script-conclusion.html)

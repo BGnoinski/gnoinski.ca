@@ -1,4 +1,6 @@
 ---
+aliases:
+  - updating-makefile-to-a-python-script-build-run-dev-container.html
 title: Updating Makefile to a Python script - build run dev container
 date: 2018-04-10T16:30:00Z
 categories:
@@ -44,7 +46,7 @@ wc Makefile
 * python3 (Most of this stuff will work in 2.7, I think)
 * [python subprocess](https://docs.python.org/2/library/subprocess.html)
 * [python os](https://docs.python.org/3/library/os.html) I think I am going to need os to get the current dir for the -v flag.
-    * ** added after my initial best laid plans **
+    * **added after my initial best laid plans**
     * I also needed os to get an environment variable.
 
 Give the above docs linked in the requirements a read if you haven't already and you'll be better off. But since this is part 2 you've already been through them all. 
@@ -118,7 +120,7 @@ wc newmake.py
   51   95 1091 newmake.py
 ```
 
-** Rewriting my build function ** 
+**Rewriting my build function** 
 
 ``` python
 def build():
@@ -252,7 +254,7 @@ wc newmake.py
 
 Here we are with 3.4X more lines in newmake.py then we are in the Make file. 
 
-** Rewriting my dev function **
+**Rewriting my dev function**
 
 ```
 def dev():
@@ -359,6 +361,6 @@ Since the groundwork was already laid python was pretty quick to setup these fun
 
 Part3 will include the uploading to s3 using the existing AWS cli, I'm not going to introduce boto3 yet even though it is preferred if working with Python and AWS.
 
-* [Part1 Clean](updating-makefile-to-a-python-script-clean.html)
-* [Part3 upload to s3, argparse](updating-makefile-to-a-python-script-upload-to-s3-argparse.html)
-* [Part4 Conclusion](updating-makefile-to-a-python-script-conclusion.html)
+* [Part1 Clean](/updating-makefile-to-a-python-script-clean.html)
+* [Part3 upload to s3, argparse](/updating-makefile-to-a-python-script-upload-to-s3-argparse.html)
+* [Part4 Conclusion](/updating-makefile-to-a-python-script-conclusion.html)

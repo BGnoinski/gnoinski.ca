@@ -1,4 +1,6 @@
 ---
+aliases:
+  - updating-makefile-to-a-python-script-upload-to-s3-argparse.html
 title: Updating Makefile to a Python script - upload to s3, argparse
 date: 2018-04-11T16:30:00Z
 categories:
@@ -44,7 +46,7 @@ wc Makefile
 
 * python3 (Most of this stuff will work in 2.7, I think)
 * [python subprocess](https://docs.python.org/2/library/subprocess.html)
-    * ** added after my initial best laid plans **
+    * **added after my initial best laid plans**
 * **[shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) <span style="color:red">NEW REQUIREMENTS HERE</span>**
 * [chmod](https://linux.die.net/man/1/chmod)
 
@@ -54,7 +56,7 @@ Give the above docs linked in the requirements a read if you haven't already and
 
 1. Rewriting my upload function
 1. Make arparse work
-    1. ** added after my initial best laid plans **
+    1. **added after my initial best laid plans**
 1. Remove the need for `python3 newmake.py`
 
 ### Let's roll
@@ -117,7 +119,7 @@ if __name__ == '__main__':
     main()
 ```
 
-** Rewriting my upload function **
+**Rewriting my upload function**
 
 ```
 def upload():
@@ -208,7 +210,7 @@ wc newmake.py
 2.84X more words in the python script. No noticible difference in speed. Upload could be skewed due to network conditions.
 
 
-** Make arparse work **
+**Make arparse work**
 
 I wanted to avoid a bunch of if statements to figure out which argument was used, I just wanted the action on the command line called. I found [This link which does exactly what I want](https://stackoverflow.com/questions/27529610/call-function-based-on-argparse?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa)
 
@@ -251,7 +253,7 @@ FUNCTION_MAP[args.action]()
 
 <span style="color:#054300">I generally try to avoid assiging things to variables simply for the sake of assigning.</span>
 
-** Remove the need for `python3 newmake.py` **
+**Remove the need for `python3 newmake.py`**
 
 ```
 #!/usr/bin/env python3
@@ -306,6 +308,6 @@ I do not think there there was any difference in speed, at least not to any huma
 
 In part 4 I will have a brief conclusion.
 
-* [Part1 Clean](updating-makefile-to-a-python-script-clean.html)
-* [Part2 build run dev container](updating-makefile-to-a-python-script-build-run-dev-container.html)
-* [Part4 Conclusion](updating-makefile-to-a-python-script-conclusion.html)
+* [Part1 Clean](/updating-makefile-to-a-python-script-clean.html)
+* [Part2 build run dev container](/updating-makefile-to-a-python-script-build-run-dev-container.html)
+* [Part4 Conclusion](/updating-makefile-to-a-python-script-conclusion.html)

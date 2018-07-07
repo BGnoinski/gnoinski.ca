@@ -1,4 +1,6 @@
 ---
+aliases:
+  - introduction-to-terraform.html
 title: Introduction to Terraform
 date: 2018-05-29T19:25:00Z
 categories:
@@ -15,7 +17,7 @@ I have worked almost exclusively with AWS so I will be using AWS for my examples
 
 ### Requirements
 
-* [AWS credentials](aws-cli-setup.html)
+* [AWS credentials](/aws-cli-setup.html)
 * [Download Terraform](https://www.terraform.io/downloads.html)
 * [Terraform Docs](https://www.terraform.io/docs/index.html)
 * [All Terraform Providers](https://www.terraform.io/docs/providers/index.html)

@@ -1,4 +1,6 @@
 ---
+aliases:
+  - aws-cli-setup.html
 title: AWS cli setup
 date: 2018-04-29T14:25:00Z
 categories:
@@ -15,7 +17,7 @@ Some may say that using the cli is hard, but the syntax and usage of the cli is 
 
 ### Requirements
 
-* [An IAM role](create-an-aws-iam-user.html)
+* [An IAM role](/create-an-aws-iam-user.html)
 * [python3 pip](https://packaging.python.org/tutorials/installing-packages/#ensure-you-can-run-pip-from-the-command-line)
 * [read cli documentation](https://aws.amazon.com/cli/)
 * <span style="color:#8C4B20">*WARNING* I use Ubuntu Linux, most of my commands should work on linux/mac. If you're running windows, I'm very sorry to hear that, but I can't help you. 
@@ -317,7 +319,7 @@ You can combine both methods to make your life easier. For example I generally h
 }
 ```
 
-### Conclusion
+## Conclusion
 
 Hopefully this article has given you a good grasp on how to use the cli and make your life working with multiple accounts/regions a little easier. 
 

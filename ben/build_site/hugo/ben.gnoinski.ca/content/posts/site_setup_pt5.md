@@ -1,4 +1,6 @@
 ---
+aliases:
+  - invalidating-cloudfront-cache.html
 title: Invalidating Cloudfront Cache
 date: 2018-04-06T17:30:00Z
 categories:
@@ -13,7 +15,7 @@ In this post I will setup invalidating the Cloudfront cache everytime I upload m
 ### Requirements
 
 * AWS account
-* [AWS cli](aws-cli-setup.html)
+* [AWS cli](/aws-cli-setup.html)
 * AWS Cloudfront Distribution
 
 ### Steps I'm going to cover
@@ -24,7 +26,7 @@ In this post I will setup invalidating the Cloudfront cache everytime I upload m
 
 ### Let's roll
 
-** Create Cloudfront Invalidation **
+**Create Cloudfront Invalidation**
 
 So I'm pretty sure you all know where we're going by now `aws cloudfront help` then `aws cloudfront create-invalidation help`
 Final command will be `aws cloudfront create-invalidation --distribution-id EW7T5A29H3R3J --paths /*` 
@@ -139,7 +141,7 @@ So the command litteraly told Cloudfront to invalidate all of the paths that exi
 
 Now that's what I expected to see.
 
-** Invalidate after every upload **
+**Invalidate after every upload**
 
 And last but not least we want this to happen every time we upload a site so we need to make a change to the Makefile.
 
@@ -192,4 +194,8 @@ aws cloudfront create-invalidation --distribution-id EW7T5A29H3R3J --paths '/*'
 
 That's pretty much it for this series of articles I have some final thoughts in the next post. There is what I think some good advice but certainly nothing technical in the next post. 
 
-* [Part6 Final Thoughts On Setting Up My Site](final-thoughts-on-setting-up-my-site.html)
+* [Part1 How This Site Came To Be](/how-this-site-came-to-be.html)
+* [Part2 Uploading My New Site to S3](/uploading-my-new-site-to-s3.html)
+* [Part3 Setting up SSL Certs and Route53 cert valication](/set-up-acm-ssl-certs-and-domain-validation-with-route53.html)
+* [Part4 Setting up Cloudfront Distribution](/setting-up-cloudfront-distribution.html)
+* [Part6 Final Thoughts On Setting Up My Site](/final-thoughts-on-setting-up-my-site.html)

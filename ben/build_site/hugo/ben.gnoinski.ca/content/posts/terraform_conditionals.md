@@ -1,6 +1,9 @@
 ---
+aliases:
+  - terraform-conditionals.html
 title: Terraform Conditionals
 date: 2018-06-14T19:46:00Z
+draft: true
 categories:
   - Infrastructure 
 tags:
@@ -15,9 +18,9 @@ If this is confusing don't worry about it. Continue reading, I show examples whi
 
 ### Requirements
 
-* [Terraform Intro](terraform-intro.html)
-* [Terraform Variables](terraform-variables.html)
-* [Terraform Count and "Loops"](terraform-count-and-loops.html)
+* [Terraform Intro](/terraform-intro.html)
+* [Terraform Variables](/terraform-variables.html)
+* [Terraform Count and "Loops"](/terraform-count-and-loops.html)
 * [Terraform Interpolation Docs](https://www.terraform.io/docs/configuration/interpolation.html)
     * Scroll down to "Conditionals"
 

@@ -1,4 +1,6 @@
 ---
+aliases:
+  - terraform-count-and-loops.html
 title: Terraform Count and Loops
 date: 2018-06-03T07:56:00Z
 categories:
@@ -14,7 +16,7 @@ Maybe we don't want those subnets to have the same name, so we create a list of 
 
 ### Requirements
 
-* [Intro to Terraform](introduction-to-terraform.html)
+* [Intro to Terraform](/introduction-to-terraform.html)
 * [Terraform Interpolation](terraform-interpolation.html)
 * [Terraform docs - count](https://www.terraform.io/docs/configuration/resources.html)
 * [github example code for this post](https://github.com/BGnoinski/gnoinski.ca/tree/master/ben/terraform/loops/)

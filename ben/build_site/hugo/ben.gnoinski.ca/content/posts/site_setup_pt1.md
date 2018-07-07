@@ -1,4 +1,6 @@
 ---
+aliases:
+  - how-this-site-came-to-be.html
 title: How this site came to be
 date: 2018-04-01T18:39:00Z
 categories:
@@ -187,8 +189,8 @@ dev: clean build
 
 Well It has been decided.
 
-* [Part2 Uploading My New Site to S3](uploading-my-new-site-to-s3.html)
-* [Part3 Setting up SSL Certs and Route53 cert valication](set-up-acm-ssl-certs-and-domain-validation-with-route53.html)
-* [Part4 Setting up Cloudfront Distribution](setting-up-cloudfront-distribution.html)
-* [Part5 Invalidating Cloudfront Cache](invalidating-cloudfront-cache.html)
-* [Part6 Final Thoughts On Setting Up My Site](final-thoughts-on-setting-up-my-site.html)
+* [Part2 Uploading My New Site to S3](/uploading-my-new-site-to-s3.html)
+* [Part3 Setting up SSL Certs and Route53 cert valication](/set-up-acm-ssl-certs-and-domain-validation-with-route53.html)
+* [Part4 Setting up Cloudfront Distribution](/setting-up-cloudfront-distribution.html)
+* [Part5 Invalidating Cloudfront Cache](/invalidating-cloudfront-cache.html)
+* [Part6 Final Thoughts On Setting Up My Site](/final-thoughts-on-setting-up-my-site.html)

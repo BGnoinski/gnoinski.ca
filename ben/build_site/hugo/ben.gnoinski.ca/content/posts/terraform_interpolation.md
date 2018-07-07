@@ -1,4 +1,6 @@
 ---
+aliases:
+  - terraform-interpolation.html
 title: Terraform Interpolation
 date: 2018-06-02T07:03:00Z
 categories:
@@ -14,7 +16,7 @@ I am using the sample code from [Terraform Variables](terraform-variables.html) 
 
 ### Requirements
 
-* [Intro to Terraform](introduction-to-terraform.html)
+* [Intro to Terraform](/introduction-to-terraform.html)
 * [Terraform Interpolation Docs](https://www.terraform.io/docs/configuration/interpolation.html)
 * [Terraform aws_vpc resource](https://www.terraform.io/docs/providers/aws/r/vpc.html)
 * [Terraform aws_subent resource](https://www.terraform.io/docs/providers/aws/r/subnet.html)

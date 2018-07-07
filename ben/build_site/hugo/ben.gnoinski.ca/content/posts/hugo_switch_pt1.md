@@ -2,6 +2,10 @@
 title: "Switching From Pelican To Hugo"
 date: 2018-07-05T03:33:05Z
 draft: true
+categories:
+  - blog
+tags: 
+  - hugo
 ---
 
 While I have been reasonably happy with Pelican I don't love it. It's not really being maintained, themes are outdated, and I really don't care to do front end work mainly because I don't care how pretty something looks as long as it's functional, and man are there a lot of pretty looking useless websites out there. 

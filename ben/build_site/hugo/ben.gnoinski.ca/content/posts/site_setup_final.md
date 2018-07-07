@@ -1,4 +1,6 @@
 ---
+aliases:
+  - final-thoughts-on-setting-up-my-site.html
 title: Final Thoughts On Setting Up My Site
 date: 2018-04-06T18:30:00Z
 categories:
@@ -7,11 +9,11 @@ tags:
   - Editorial
 ---
 
-* [Part 1 - How this site came to be](how-this-site-came-to-be.html)
-* [Part 2 - Uploading My New Site To S3](uploading-my-new-site-to-s3.html)
-* [Part 3 - Setting up SSL Certs and Route53 Cert validation](set-up-acm-ssl-certs-and-domain-validation-with-route53.html)
-* [Part 4 - Setting up Cloudfront Distribution](setting-up-cloudfront-distribution.html)
-* [Part 5 - Invalidating Cloudfront Cache](invalidating-cloudfront-cache.html)
+* [Part 1 - How this site came to be](/how-this-site-came-to-be.html)
+* [Part 2 - Uploading My New Site To S3](/uploading-my-new-site-to-s3.html)
+* [Part 3 - Setting up SSL Certs and Route53 Cert validation](/set-up-acm-ssl-certs-and-domain-validation-with-route53.html)
+* [Part 4 - Setting up Cloudfront Distribution](/setting-up-cloudfront-distribution.html)
+* [Part 5 - Invalidating Cloudfront Cache](/invalidating-cloudfront-cache.html)
 
 I've wanted to do something for quite some time, I just wasn't sure what. [The Codependent Codr](https://www.codependentcodr.com) gave me the kick I needed to get this started.
 

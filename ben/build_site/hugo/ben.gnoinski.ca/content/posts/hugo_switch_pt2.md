@@ -5,7 +5,7 @@ draft: true
 categories:
   - blog
 tags: 
-  - stuff
+  - hugo
 ---
 
 I have a bunch of posts for pelican that I need to convert into hugo syntax.

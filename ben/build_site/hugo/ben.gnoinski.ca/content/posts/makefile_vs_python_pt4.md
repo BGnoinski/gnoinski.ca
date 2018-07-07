@@ -1,4 +1,6 @@
 ---
+aliases:
+  - updating-makefile-to-a-python-script-conclusion.html
 title: Updating Makefile to a Python script - Conclusion
 date: 2018-04-19T19:30:00Z
 categories:
@@ -7,9 +9,9 @@ tags:
   - Editorial
 ---
 
-* [Part1 Clean](updating-makefile-to-a-python-script-clean.html)
-* [Part2 build run dev container](updating-makefile-to-a-python-script-build-run-dev-container.html)
-* [Part3 upload to s3, argparse](updating-makefile-to-a-python-script-upload-to-s3-argparse.html)
+* [Part1 Clean](/updating-makefile-to-a-python-script-clean.html)
+* [Part2 build run dev container](/updating-makefile-to-a-python-script-build-run-dev-container.html)
+* [Part3 upload to s3, argparse](/updating-makefile-to-a-python-script-upload-to-s3-argparse.html)
 
 ```
 wc Makefile 

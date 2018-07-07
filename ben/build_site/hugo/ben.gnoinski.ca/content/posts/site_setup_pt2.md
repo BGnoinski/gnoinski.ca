@@ -1,4 +1,6 @@
 ---
+aliases:
+  - uploading-my-new-site-to-s3.html
 title: Uploading My New Site To S3
 date: 2018-04-02T17:08:00Z
 categories:
@@ -14,7 +16,7 @@ In this post I will go through the steps that I took to make my site live in a s
 ### Requirements
 
 * AWS account
-* [AWS cli](aws-cli-setup.html)
+* [AWS cli](/aws-cli-setup.html)
 
 ### Steps I'm going to cover
 
@@ -27,14 +29,14 @@ In this post I will go through the steps that I took to make my site live in a s
 
 ### Let's roll
 
-** Create IAM user for myself **
+**Create IAM user for myself**
 
 My AWS account hasn't been used for much so I need to [create an IAM user for myself](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html). I am going to assign myself the AdministratorAccess policy as well as programmatic access.
 
 * <span style="color:blue">*Best practice* ~ Your root account should have 2FA (multi factor Authentication) enabled and then not used. Use a separate user for your day to day work. </span>
-* <span style="color:red">*CRITICAL* ~ ** Make sure you do not commit your AWS secret access key and password to github. *ever!* </span>**
+* <span style="color:red">*CRITICAL* ~ **Make sure you do not commit your AWS secret access key and password to github. *ever!* </span>**
 
-** Setup AWS cli **
+**Setup AWS cli**
 
 Once your IAM user is created the easiest way to setup your credentials is to run `aws configure` on the command line. It asks you for the access key,secret, default region, and default output. Fill it out as required, I set my default region to ca-central-1.
 
@@ -54,7 +56,7 @@ region = ca-central-1
 
 I never actually use the config file, I always set the region as an environment variable like `export AWS_DEFAULT_REGION=ca-central-1` or append it before a command `AWS_DEFAULT_REGION=ca-central-1 $(aws ecr get-login --no-include-email)`
 
-** Create S3 bucket for site **
+**Create S3 bucket for site**
 
 Now that we have the cli setup we can create a bucket for our new site. I am going to name mine the same as the subdomain which will be `ben.gnoinski.ca` If at anytime you get stuck with the aws command line you can use help ex: `aws help` to get all cli commands, you can continue appending `help` to the end of any of the commands to get more specific command help `aws help` -> `aws s3 help` -> `aws s3 cp help`
 
@@ -70,11 +72,11 @@ make_bucket: ben.gnoinski.ca
 
 but if I run a `aws s3 ls` I can see the bucket now exists on my account. 
 
-** Enable bucket versioning **
+**Enable bucket versioning**
 
 I now want to enable bucket versioning so that if I accidentally overwrite a file, all is not lost. <span style="color:#054300">*Everything is in source control so I'm not overly concerned about losing anything, but versioning never hurts.*</span> So we run `aws s3 help` and see absolutely nothing about versioning. <span style="color:#054300">*We are going back to AWS sometimes making 0 sense.*</span> I know from experience we actually want `aws s3api help` And it looks like I am going to run `aws s3api put-bucket-versioning --bucket ben.gnoinski.ca --versioning-configuration Status=Enabled` And we get no output. No news is good news? If you want to confirm you can log into the S3 console, go into the bucket properties and make sure that versioning is now enabled.
 
-** Enable website hosting **
+**Enable website hosting**
 
 Alright now we need to enable website hosting on that bucket `aws s3 help` shows there is a `website` command, it's hidden down at the bottom but it exists.
 `aws s3 website help` is the next command to run, make sure you make note of where your website endpoint is going to be *hint: It's region dependant* and from that I am going to run `aws s3 website s3://ben.gnoinski.ca/ --index-document index.html` And again no news is good news. If you read the docs, then you know my endpoint is going to be `http://ben.gnoinski.ca.s3-website-ca-central-1.amazonaws.com` But for me that didn't work, at all.... All I get is
@@ -107,7 +109,7 @@ I am going to create a file called policy.json with the following contents
 ```
 then run the command `aws s3api put-bucket-policy --bucket ben.gnoinski.ca --policy file://policy.json`
 
-** Update Makefile to include upload to s3 **
+**Update Makefile to include upload to s3**
 
 In my local environment I have my `make dev` which builds my pelican container and starts up the dev server, what this also does is generate all of the output required for the site. As I am working on an article it also detects changes and re-publishes content on when I save. I can make all of the changes locally make sure nothing broke in dev and then upload the site that I was working with locally.
 
@@ -138,4 +140,8 @@ So `make upload` publishes my content.
 
 <span style="color:#054300">I was going to continue this article on to include setting up Cloudfront, but this seems like a logical ending to this post. I may amend this post to include it if setting up Cloudfront isn't to long. Or I may make Setting up Cloudfront and Route53 one article.</span>
 
-* [Part3 Setting up SSL Certs and Route53 cert valication](set-up-acm-ssl-certs-and-domain-validation-with-route53.html)
+* [Part1 How This Site Came To Be](/how-this-site-came-to-be.html)
+* [Part3 Setting up SSL Certs and Route53 cert valication](/set-up-acm-ssl-certs-and-domain-validation-with-route53.html)
+* [Part4 Setting up Cloudfront Distribution](/setting-up-cloudfront-distribution.html)
+* [Part5 Invalidating Cloudfront Cache](/invalidating-cloudfront-cache.html)
+* [Part6 Final Thoughts On Setting Up My Site](/final-thoughts-on-setting-up-my-site.html)

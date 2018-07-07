@@ -1,4 +1,6 @@
 ---
+aliases:
+  - setting-up-cloudfront-distribution.html
 title: Setting up Cloudfront Distribution
 date: 2018-04-05T17:30:00Z
 categories:
@@ -42,7 +44,7 @@ Address: 13.33.151.144
 * Domain Name
 * Route53 Hosted Zone (You can use your own DNS provider if you want)
 * AWS account
-* [AWS cli](aws-cli-setup.html)
+* [AWS cli](/aws-cli-setup.html)
 
 ### Steps I'm going to cover
 
@@ -54,7 +56,7 @@ Address: 13.33.151.144
 
 ### Let's roll
 
-** Create Cloudfront Distribution **
+**Create Cloudfront Distribution**
 
 Finally we are at the part where we can setup the Cloudfront distribution.
 
@@ -534,4 +536,8 @@ I was considering putting this in a new post, but since I've already shown you [
 
 And that's it for this post, my site is now available at ben.gnoinski.ca and you'll notice it automatically re-directs you to https://ben.gnoinski.ca . Check out [My Summary Post]() for my final thoughts on setting up my blog. 
 
-* [Part5 Invalidating Cloudfront Cache](invalidating-cloudfront-cache.html)
+* [Part1 How This Site Came To Be](/how-this-site-came-to-be.html)
+* [Part2 Uploading My New Site to S3](/uploading-my-new-site-to-s3.html)
+* [Part3 Setting up SSL Certs and Route53 cert valication](/set-up-acm-ssl-certs-and-domain-validation-with-route53.html)
+* [Part5 Invalidating Cloudfront Cache](/invalidating-cloudfront-cache.html)
+* [Part6 Final Thoughts On Setting Up My Site](/final-thoughts-on-setting-up-my-site.html)

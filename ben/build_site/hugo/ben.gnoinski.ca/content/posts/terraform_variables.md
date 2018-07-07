@@ -1,4 +1,6 @@
 ---
+aliases:
+  - terraform-variables.html
 title: Terraform Variables 
 date: 2018-06-01T18:55:00Z
 categories:
@@ -12,7 +14,7 @@ This post is going to start off with the basics, and then get move into intermed
 
 ### Requirements
 
-* [Intro to Terraform](introduction-to-terraform.html)
+* [Intro to Terraform](/introduction-to-terraform.html)
 * [Terraform Variable Docs](https://www.terraform.io/docs/configuration/variables.html)
 * [github example code for this post](https://github.com/BGnoinski/gnoinski.ca/tree/master/ben/terraform/variables/)
 
