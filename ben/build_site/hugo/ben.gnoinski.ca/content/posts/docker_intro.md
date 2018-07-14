@@ -115,7 +115,7 @@ devopsdays/docker-hugo-server            v0.30.2             02c8fd4a0c02       
 
 Looking here, I have some alpine, ubuntu, devopsdays (I helped organize DevOpsDays Victoria 2018) images kicking around.
 
-And then there is hugo:latest and gnoinski.ca:latest. These are containers I have built, which is a process I will get into in the next Docker post. <!--TODO link to Docker build post-->
+And then there is hugo:latest and gnoinski.ca:latest. These are containers I have built, which is a process I will get into in the [next Docker post](/posts/dockerfile_build_layers).
 
 We should always cleanup after ourselves. We can remove old images by running `docker rmi {IMAGEID}`
 
