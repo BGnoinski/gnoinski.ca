@@ -5,9 +5,13 @@ theme = "hyde-hyde"
 googleAnalytics = "UA-117528368-1"
 
 [params]
-  description = "DevOps Engineer"
+  description = "Development Engineer"
   IncludeCustomCss = true
 
 [params.social]
   github = "BGnoinski"
   linkedin = "ben-gnoinski-34b10890"
+
+[params.links]
+  tags = "tags/"
+  categories = "categories/"

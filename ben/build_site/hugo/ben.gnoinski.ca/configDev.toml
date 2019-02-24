@@ -4,9 +4,13 @@ title = "Ben Gnoinski"
 theme = "hyde-hyde"
 
 [params]
-  description = "DevOps Engineer"
+  description = "Development Engineer"
   IncludeCustomCss = true
 
 [params.social]
   github = "BGnoinski"
   linkedin = "ben-gnoinski-34b10890"
+
+[params.links]
+  tags = "tags/"
+  categories = "categories/"
